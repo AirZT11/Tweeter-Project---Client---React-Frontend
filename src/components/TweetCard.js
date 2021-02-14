@@ -42,25 +42,27 @@ class TweetCard extends Component {
     } 
 
     return (
-      <div>
-        <h5>{this.state.message}</h5>
-        
-        <button onClick={this.handleEditClick}>edit</button>
-  
-        <div style={editViewStyle}>
-          < EditForm 
-              tweetValue={this.props.tweet.message} 
-              tweetsApiURL={this.props.tweetsApiURL}
-              tweet={this.props.tweet}
-              handleEditClick={this.handleEditClick}
-              renderTweetEdit={this.renderTweetEdit} />
+      <div className='card'>
+        <div className='container'>
+          <h5>{this.state.message}</h5>
+          
+          <button onClick={this.handleEditClick}>edit</button>
+    
+          <div style={editViewStyle}>
+            < EditForm 
+                tweetValue={this.props.tweet.message} 
+                tweetsApiURL={this.props.tweetsApiURL}
+                tweet={this.props.tweet}
+                handleEditClick={this.handleEditClick}
+                renderTweetEdit={this.renderTweetEdit} />
+          </div>
+    
+          <button onClick={() => this.props.handleDelete(this.props.tweet)}>Delete</button>
+    
+          <p>{dateString}</p>
         </div>
+        
   
-        <button onClick={() => this.props.handleDelete(this.props.tweet)}>Delete</button>
-  
-        <p>{dateString}</p>
-  
-        <hr></hr>
       </div>
     )
   }

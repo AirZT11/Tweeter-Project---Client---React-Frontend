@@ -39,7 +39,7 @@ class EditForm extends Component {
         <form onSubmit={this.handleSubmitEdit}
           id="tweet_form"
           autoComplete='off'>
-          <input type='text' value={this.state.tweetValue} onChange={this.handleEditChange} />
+          <textarea className='tweetInput' value={this.state.tweetValue} onChange={this.handleEditChange} /><br />
           <input type='submit' />
           
         </form>

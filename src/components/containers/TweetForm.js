@@ -25,8 +25,7 @@ class TweetForm extends Component {
       },
       body: JSON.stringify({
         message: this.state.message,
-        //placeholder user_id
-        user_id: 1
+        user_id: 1 //placeholder user_id
       })
     })
     .then(response => response.json())
@@ -48,7 +47,10 @@ class TweetForm extends Component {
         <form onSubmit={this.handleSubmit}
             id="tweet_form"
             autoComplete='off'>
-          <input type='text' value={this.state.message} onChange={this.handleChange} />
+          <span>
+            <textarea className='tweetInput' value={this.state.message} onChange={this.handleChange} placeholder='enter new tweet...'/>
+          </span>
+          <br />
           <input type='submit' />
         </form>
       </div>
