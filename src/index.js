@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import NavBar from './NavBar'
+import NavBar from './components/containers/NavBar'
 import App from './App';
 import Login from './components/Login'
 import SignUp from './components/containers/SignUpContainer'

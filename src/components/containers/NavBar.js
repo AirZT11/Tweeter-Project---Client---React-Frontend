@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
-import './NavBar.css';
+import '.../NavBar.css';
+//import App from './App';
+import Login from './components/Login'
+import SignUp from './components/containers/SignUpContainer'
+import Search from './components/Search'
 
 class NavBar extends Component {
   
