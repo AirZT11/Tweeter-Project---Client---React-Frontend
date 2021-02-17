@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+// import {Redirect} from 'react-router-dom'
 
 const LOGIN_API_URL = 'http://localhost:3001/api/v1/login'
 
@@ -20,6 +21,13 @@ class Login extends Component {
     })
   }
 
+  initialState = () => {
+    this.setState({
+      username: '',
+      password: ''
+    })
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     fetch(LOGIN_API_URL, {
@@ -33,15 +41,14 @@ class Login extends Component {
           username: this.state.username,
           password: this.state.password
         }
-        
       })
     })
     .then(resp => resp.json())
     .then(data => {
       localStorage.setItem("token", data.jwt)
-      // props.handleLogin(data.user)
-      console.log(data)
+      this.props.handleLogin(data.user)
     })
+
   }
 
   render() {

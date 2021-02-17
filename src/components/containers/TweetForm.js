@@ -25,7 +25,7 @@ class TweetForm extends Component {
       },
       body: JSON.stringify({
         message: this.state.message,
-        user_id: 1 //placeholder user_id
+        user_id: this.props.currentUser.user.id
       })
     })
     .then(response => response.json())

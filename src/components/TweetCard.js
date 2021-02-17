@@ -22,12 +22,6 @@ class TweetCard extends Component {
     } 
   }
 
-  // renderTweetEdit = () => {
-  //   this.setState({
-  //     message: this.props.tweet.message
-  //   })
-  // }
-
   render() {
     let dateCreated = this.props.tweet.created_at.slice(0,10);
     let m = new Date(dateCreated);
@@ -50,6 +44,7 @@ class TweetCard extends Component {
     
           <div style={editViewStyle}>
             < EditForm 
+                currentUser={this.props.currentUser}
                 tweetValue={this.props.tweet.message} 
                 tweetsApiURL={this.props.tweetsApiURL}
                 tweet={this.props.tweet}
@@ -57,7 +52,7 @@ class TweetCard extends Component {
                 renderTweetEdit={this.renderTweetEdit} />
           </div>
     
-          <button onClick={() => this.props.handleDelete(this.props.tweet)}>Delete</button>
+          <button onClick={() => this.props.handleDeleteTweet(this.props.tweet)}>Delete</button>
     
           <p>{dateString}</p>
         </div>

@@ -25,12 +25,10 @@ class EditForm extends Component {
       },
       body: JSON.stringify({
         message: this.state.tweetValue,
-        //placeholder user_id
-        user_id: 1
+        user_id: this.props.currentUser.user.id
       })
     })
       .then(() => this.props.handleEditClick())
-      //.then(() => this.props.renderTweetEdit())
   }
 
   render() {
