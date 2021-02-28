@@ -14,12 +14,16 @@ const TWEETS_API_URL = 'http://localhost:3001/api/v1/tweets'
 class App extends Component {
   state = {
     currentUser: null,
-    tweets: []
+    allTweets: [],
+    userTweets: []
   }
 
   componentDidMount() {
-    this.handleUserFetch()
-    this.fetchUserTweets()
+    if (localStorage.length > 0) {
+      this.handleUserFetch()
+      this.fetchAllTweets()
+      this.fetchUserTweets()
+    }
   }
 
   handleUserFetch = () => {
@@ -42,6 +46,9 @@ class App extends Component {
       })
     } else {
       console.log('no token available. manually login')
+      // go to sign up page or
+      // go to login page and make user sign in
+
     }
   }
 
@@ -49,6 +56,14 @@ class App extends Component {
     this.setState({
       currentUser: user
     })
+  }
+
+  fetchAllTweets = () => {
+    fetch(TWEETS_API_URL)
+    .then(response => response.json())
+    .then(data => this.setState({
+      allTweets: data.sort(this.custom_sort)
+    }))
   }
 
   fetchUserTweets = () => {
@@ -60,13 +75,13 @@ class App extends Component {
         return tweet.user.id === this.state.currentUser.user.id
       }))
     .then(data => this.setState({
-      tweets: data.sort(this.custom_sort)
+      userTweets: data.sort(this.custom_sort)
     }))
   }
 
   updateTweetList = (tweetData) => {
     this.setState({
-      tweets: [tweetData, ...this.state.tweets]
+      allTweets: [tweetData, ...this.state.allTweets]
     })
   }
 
@@ -76,9 +91,9 @@ class App extends Component {
       method: 'DELETE'
     })
       .then(() => {
-        const tweetDeletedFromList = this.state.tweets.filter(t => t !== tweet)
+        const tweetDeletedFromList = this.state.allTweets.filter(t => t !== tweet)
           this.setState({
-            tweets: tweetDeletedFromList
+            allTweets: tweetDeletedFromList
           })
       })
   }
@@ -92,7 +107,11 @@ class App extends Component {
       <div className="App">
           
         <Router>
-          <NavBar logged_in={this.state.currentUser} setCurrentUser={this.handleLogin} />
+          <NavBar 
+            logged_in={this.state.currentUser} 
+            setCurrentUser={this.handleLogin}
+           />
+
           <h1>Tweeter</h1>
           {/* <h2>{`Welcome back ${this.currentUser ? this.state.currentUser.user.name : null}!`}</h2> */}
 
@@ -100,25 +119,33 @@ class App extends Component {
               < Home 
                 currentUser={this.state.currentUser} 
                 TWEETS_API_URL={TWEETS_API_URL}
-                userTweets={this.state.tweets} 
+                allTweets={this.state.allTweets} 
                 updateTweetList={this.updateTweetList}
                 handleDeleteTweet={this.handleDeleteTweet} /> :
               < Login handleLogin={this.handleLogin} /> }>
           </Route>
 
           <Route exact path='/profile' render={() => this.state.currentUser ?
-              < Profile currentUser={this.state.currentUser} /> :
+              < Profile 
+                currentUser={this.state.currentUser} 
+                TWEETS_API_URL={TWEETS_API_URL}
+                userTweets={this.state.userTweets} 
+                updateTweetList={this.updateTweetList}
+                handleDeleteTweet={this.handleDeleteTweet}/> :
               < Login handleLogin={this.handleLogin} /> }>
-
           </Route>
+
           <Route 
             exact path='/login' 
             render={() => this.state.currentUser ? 
               < Redirect to="/" /> :
               < Login handleLogin={this.handleLogin} /> }>
           </Route>
+
           <Route exact path='/search' component={Search}></Route>
+
           <Route exact path='/signUp' component={SignUp}></Route>
+
         </Router>
 
       </div>

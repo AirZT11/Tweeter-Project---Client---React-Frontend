@@ -4,7 +4,7 @@
 }
 
 .App-header {
-  background-color: #9ba0aa;
+  background-color: #616161;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -14,6 +14,7 @@
   color: white;
 }
 
+/* TWEET CARDS */
 .tweetInput {
   display: inline-block;
   border: 1px solid #ccc;
@@ -34,22 +35,45 @@
   width: 100%;
   left: 0;
 }
-
-.card {
+.profile-card {
   display: inline-block;
+  text-align: left;
+  padding: 6px 10px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 50%;
+  background-color: white;
+}
+
+.tweet-card {
+  display: inline-block;
+  text-align: left;
+  padding: 6px;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 50%;
   background-color: rgb(255, 255, 255);
 }
 
-.container {
-  padding: 2px 16px;
+.tweet-container {
+  padding: 6px 8px;
+}
+
+span.main-username{
+  color: black;
+  font-weight: bold;
+  font-size: x-large;
+  
+}
+
+span.sub-username{
+  font-size: medium;
+  color: rgb(173, 173, 173)
 }
 
 /* NAV BAR STYLING */
 .nav-bar {
-  background-color: #8f8f85;
+  background-color: #616161;
   position: sticky;
   top: 0;
 }

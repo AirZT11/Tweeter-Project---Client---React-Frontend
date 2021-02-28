@@ -12,6 +12,7 @@ const NavBar = (props) => {
   if (props.logged_in) {
     return (
       <div className='nav-bar'>
+        
         <NavLink
           to='/'
           exact

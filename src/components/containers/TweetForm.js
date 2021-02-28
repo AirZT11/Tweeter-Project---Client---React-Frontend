@@ -39,6 +39,12 @@ class TweetForm extends Component {
     })
   }
 
+  onKeyPress = (e) => {
+    if(e.which === 13) {
+      this.handleSubmit(e);
+    }
+  }
+
 // planning on refactoring presentational code into Form component
   render () {
     return (
@@ -48,11 +54,13 @@ class TweetForm extends Component {
             id="tweet_form"
             autoComplete='off'>
           <span>
-            <textarea className='tweetInput' value={this.state.message} onChange={this.handleChange} placeholder='enter new tweet...'/>
+            <textarea className='tweetInput' value={this.state.message} onChange={this.handleChange} onKeyPress={this.onKeyPress} placeholder='enter new tweet...'/>
           </span>
           <br />
           <input type='submit' />
+          <br /><br />
         </form>
+        
       </div>
     )
   }

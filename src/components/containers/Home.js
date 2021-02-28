@@ -18,7 +18,7 @@ class Home extends Component {
 
           < TweetList 
               currentUser={this.props.currentUser}
-              tweets={this.props.userTweets} 
+              tweets={this.props.allTweets} 
               handleDeleteTweet={this.props.handleDeleteTweet} 
               tweetsApiURL={this.props.TWEETS_API_URL} 
           />  
