@@ -1,5 +1,3 @@
-// currently not adding a password confirmation till the concept of authorizing users and logging in is understood
-
 import React from 'react';
 
 const SignUpForm = ({handleChange, handleSubmit}) => {

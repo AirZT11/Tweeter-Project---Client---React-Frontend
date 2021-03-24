@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-
-//import App from './App';
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../../actions/userActions';
 
 const NavBar = (props) => {
   let logout = () => {
@@ -61,13 +60,7 @@ const NavBar = (props) => {
           >Login</NavLink>    
       </div>
     )
-  }
-          
-          
-    
-   
-  
-  
+  } 
 }
 
-export default NavBar
+export default connect(null, { setCurrentUser })(NavBar);

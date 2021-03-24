@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { editTweet } from '../actions/tweetActions'
 
 class EditForm extends Component {
   constructor(props) {
@@ -15,20 +17,13 @@ class EditForm extends Component {
 
   handleSubmitEdit = (e) => {
     // e.preventDefault();
-
-    const editURL = this.props.tweetsApiURL + `/${this.props.tweet.id}`;
-    // fetch method PATCH to rails API and render udpated tweets
-    fetch(editURL, {
-      method: 'PATCH',
-      headers: {
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify({
-        message: this.state.tweetValue,
-        user_id: this.props.currentUser.user.id
-      })
-    })
-      .then(() => this.props.handleEditClick())
+    const formData = {
+      message: this.state.tweetValue,
+      user_id: this.props.currentUser.id,
+      id: this.props.tweet.id
+    }
+    this.props.editTweet(formData)
+    this.props.handleEditClick()
   }
 
   render() {
@@ -48,4 +43,4 @@ class EditForm extends Component {
   
 } 
 
-export default EditForm;
+export default connect(null, { editTweet })(EditForm);

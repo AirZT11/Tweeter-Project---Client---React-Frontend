@@ -1,42 +1,34 @@
 import React, { Component } from 'react';
-// import Form from '../Form';
+import { connect } from 'react-redux';
+import { createTweet } from '../../actions/tweetActions';
 
 class TweetForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      api_url: this.props.tweetsApiURL,
       message: ''
     }
   }
   
-  getInitialState = () => ({
+  getInitialState = () => this.setState({
     message: ''
   })
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    fetch(this.state.api_url, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify({
-        message: this.state.message,
-        user_id: this.props.currentUser.id
-      })
-    })
-    .then(response => response.json())
-    .then(data => this.props.updateTweetList(data))
-    this.setState(this.getInitialState())
-  }
 
   handleChange = event => {
     this.setState({
       message: event.target.value
     })
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const formData = {
+      message: this.state.message,
+      user_id: this.props.currentUser.id
+    }
+    console.log(formData)
+    this.props.createTweet(formData)
+    this.getInitialState()
   }
 
   onKeyPress = (e) => {
@@ -45,7 +37,6 @@ class TweetForm extends Component {
     }
   }
 
-// planning on refactoring presentational code into Form component
   render () {
     return (
       <div>
@@ -65,7 +56,10 @@ class TweetForm extends Component {
     )
   }
 }
-  
 
-export default TweetForm;
+const mapStateToProps = state => ({
+  currentUser: state.userData.currentUser.user
+})
+
+export default connect(mapStateToProps, { createTweet })(TweetForm);
 

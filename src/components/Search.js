@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
 
-class Search extends Component {
-
-  render() {
+const Search = props => {
+  console.log(props)
+  
     return (
       <div>
         <h1>Search Tweets!</h1>
@@ -13,6 +12,5 @@ class Search extends Component {
       </div>
     )
   }
-}
 
 export default Search

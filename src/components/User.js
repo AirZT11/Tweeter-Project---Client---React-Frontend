@@ -1,28 +1,45 @@
-// import React, {Component} from 'react';
-import TweetList from './containers/TweetList'
-// import TweetForm from './containers/TweetForm'
+import React, { useEffect } from 'react';
+import TweetList from './containers/TweetList';
+import { connect } from 'react-redux';
+import { fetchTweets } from '../actions/tweetActions';
 
 const User = props => {
+  const { fetchTweets, user } = props;
 
+  useEffect(() => {
+    fetchTweets()
+  }, [fetchTweets])
+
+  if (user) {
     return (
       <div>
-        {/* {console.log(props.currentUser)} */}
         <div className='profile-card'>
-          <span className='main-username'>{props.currentUser.name}</span> <br />
-          <span className='sub-username'>@{props.currentUser.username}</span><br />
+          <span className='main-username'>{props.user.name}</span>
+          <span className='sub-username'> @{props.user.username}</span><br />
+          <button style={{float: 'right'}}>Follow</button>
+          <span>{props.tweets.length} tweets</span><br />
+          
           <span>Followers </span><br />
-          <span>Following</span>
+          <span>Following </span>
         </div>
+        
+        <br />
+        <br />
 
-        <h3>Your Submitted Tweets!</h3>
           < TweetList 
-              tweetsApiURL={props.TWEETS_API_URL} 
-              currentUser={props.currentUser}
-              tweets={props.userTweets} 
+              tweets={props.tweets} 
               handleDeleteTweet={props.handleDeleteTweet} 
           />  
+
       </div>
     )
+  } else {
+    return <div>Loading...</div>
+  }
 }
 
-export default User
+const mapStateToProps = (state, ownProps) => ({
+  tweets: state.tweetsData.tweets.filter(t => t.user.id === ownProps.user.id),
+})
+
+export default connect(mapStateToProps, { fetchTweets })(User)

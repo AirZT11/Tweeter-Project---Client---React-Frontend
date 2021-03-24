@@ -1,24 +1,36 @@
+import React, {Component} from 'react';
 import TweetList from './TweetList'
 import TweetForm from './TweetForm'
+import { connect } from 'react-redux';
+import { fetchTweets } from '../../actions/tweetActions';
+// import { render } from '@testing-library/react';
+import { withRouter } from 'react-router'
 
-const Home = props => (
+class Home extends Component {
+  componentDidMount() {
+    this.props.fetchTweets();
+  }
 
+  render() {
+    return (
         <div className="App">
           
           < TweetForm 
-              tweetsApiURL={props.TWEETS_API_URL} 
-              updateTweetList={props.updateTweetList} 
-              currentUser={props.currentUser}
+              updateTweetList={this.props.updateTweetList} 
           />
 
           < TweetList 
-              tweetsApiURL={props.TWEETS_API_URL} 
-              currentUser={props.currentUser}
-              tweets={props.allTweets} 
-              handleDeleteTweet={props.handleDeleteTweet} 
+              tweets={this.props.tweets}
           />  
         </div>
-      
-)
+    )
+  }
+}
+  
 
-export default Home;
+const mapStateToProps = state => ({
+  tweets: state.tweetsData.tweets,
+  newTweet: state.tweetsData.tweet,
+})
+
+export default withRouter(connect(mapStateToProps, { fetchTweets })(Home));

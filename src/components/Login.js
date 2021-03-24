@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-// import {Redirect} from 'react-router-dom'
-
-const LOGIN_API_URL = 'http://localhost:3001/api/v1/login'
+import { loginUser } from '../actions/userActions';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   state = {
@@ -30,31 +29,12 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    fetch(LOGIN_API_URL, {
-      method: "POST",
-      headers:  {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        user: {
-          username: this.state.username,
-          password: this.state.password
-        }
-      })
-    })
-    .then(resp => resp.json())
-    .then(data => {
-      if(data.error) {
-        alert('Incorrect username or password')
-      } else {
-        localStorage.setItem("token", data.jwt)
-        this.props.handleLogin(data.user)
-        console.log(data)
-        
-      }
-    })
-
+    const userInputData = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    // call loginUser(userInputData) action
+    this.props.loginUser(userInputData)
   }
 
   render() {
@@ -75,4 +55,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default connect(null, { loginUser })(Login)
