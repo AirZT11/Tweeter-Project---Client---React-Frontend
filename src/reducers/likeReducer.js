@@ -1,5 +1,8 @@
 import { POST_LIKE, DELETE_LIKE } from '../actions/types';
 
+// updating the likes state doesn't really matter does it? 
+// the purpose of doing it at the current moment is to rerender
+// not to actually update the state as it's not for any particular tweet
 const initialState = {
   likes: []
 }

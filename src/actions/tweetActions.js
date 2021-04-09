@@ -37,7 +37,7 @@ export const createTweet = (tweetFormData) => dispatch => {
   .then(tweet => 
     dispatch({
       type: POST_TWEET,
-      payload: tweet
+      payload: tweet.tweet
     })
   )
 };

@@ -7,6 +7,7 @@ const initialState = {
 }
  
 export default function tweetReducer(state = initialState, action) {
+  
   switch(action.type) {
     case FETCH_TWEETS:
       return {

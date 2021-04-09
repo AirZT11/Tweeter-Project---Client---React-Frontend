@@ -1,10 +1,7 @@
 import { POST_LIKE, DELETE_LIKE } from './types';
 
 export const handleLike = userAndTweet => dispatch => {
-  // console.log(userAndTweet)
-  // console.log(`currentUser: ${userAndTweet.currentUser.user.id}`)
   const userLikedTweet = userAndTweet.tweet.likes.find(like => like.user_id === userAndTweet.currentUser.user.id) 
-  // console.log(userLikedTweet)  
 
   if (userLikedTweet) {
     console.log('deleting like')

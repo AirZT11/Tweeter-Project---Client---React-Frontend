@@ -1,8 +1,9 @@
-import { FETCH_CURRENT_USER, FETCH_USERS, CREATE_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER } from '../actions/types';
+import { FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER } from '../actions/types';
 
 const initialState = {
   currentUser: null,
-  users: []
+  users: [], 
+  loading: true
 }
 
 export default function userReducer(state = initialState, action) {
@@ -10,7 +11,13 @@ export default function userReducer(state = initialState, action) {
     case FETCH_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload
+        currentUser: action.payload,
+        loading: false
+      }
+    case LOADING_USER:
+      return {
+        ...state,
+        loading: false
       }
     case FETCH_USERS:
       return {
@@ -21,6 +28,13 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         users: [...state.users, action.payload]
+      }
+    
+    case EDIT_USER:
+      const editedUsers = state.users.filter(user => user.id !== action.payload.id)
+      return {
+        ...state,
+        users: [...editedUsers, action.payload]
       }
     case LOGIN_USER:
       return {

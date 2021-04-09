@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../../css/TweetList.css';
 import { connect } from 'react-redux';
 import { createTweet } from '../../actions/tweetActions';
 
@@ -39,20 +40,20 @@ class TweetForm extends Component {
 
   render () {
     return (
-      <div>
-        <h4>Submit a Tweet</h4>
-        <form onSubmit={this.handleSubmit}
-            id="tweet_form"
-            autoComplete='off'>
-          <span>
-            <textarea className='tweetInput' value={this.state.message} onChange={this.handleChange} onKeyPress={this.onKeyPress} placeholder='enter new tweet...'/>
-          </span>
-          <br />
-          <input type='submit' />
-          <br /><br />
-        </form>
-        
-      </div>
+        <div className='tweetBox'>
+          <form onSubmit={this.handleSubmit}
+              id="tweet_form"
+              autoComplete='off'>
+            
+              <div className='tweetInput'>
+                <input value={this.state.message} onChange={this.handleChange} onKeyPress={this.onKeyPress} placeholder="What's happening?"/>
+              </div>
+            
+            <br />
+            <input className='tweetButton' type='submit' value="TWEET" />
+            <br /><br />
+          </form>
+        </div>
     )
   }
 }

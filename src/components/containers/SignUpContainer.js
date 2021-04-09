@@ -10,11 +10,12 @@ class SignUpContainer extends Component {
     super(props)
 
     this.state = {
-      users: [],
+      // users: [],
       name: '',
       email: '',
       username: '',
       password: '',
+      image: null
       // confirmation: ''
     }
   }
@@ -22,35 +23,21 @@ class SignUpContainer extends Component {
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    }, ()=> console.log(event.target.value))
+    })
   }
+
+  handleFileChange = (event) => {
+    // console.log(event.target.files[0])
+    this.setState({
+      image: event.target.files[0]
+    })
+  }
+
 
   handleSubmit = event => {
     event.preventDefault();
     this.props.createUser(this.state);
   }
-
-  // postUser = () => {
-  //   fetch(USERS_API_URL, {
-  //     method: 'POST',
-  //     mode: 'cors', // why do you use cors?
-  //     headers: {
-  //       "Content-Type": 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       user: {
-  //         name: this.state.name,
-  //         email: this.state.email,
-  //         username: this.state.username,
-
-  //         //obviously going to need some level of encryption for passwords
-  //         password: this.state.password, 
-  //         // password_confirmation: this.state.confirmation
-  //     }
-  //     })
-  //   }).then(response => response.json())
-  //   .then(data => console.log(data))
-  // }
 
   render() {
     
@@ -58,7 +45,9 @@ class SignUpContainer extends Component {
       <div>
         < SignUpForm 
             handleChange={this.handleChange}
+            handleFileChange={this.handleFileChange}
             handleSubmit={this.handleSubmit}
+            state={this.state}
         />
       </div>
     )

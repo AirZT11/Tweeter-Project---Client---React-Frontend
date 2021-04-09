@@ -1,0 +1,100 @@
+/* TWEET CARDS */
+.tweet-container {
+  flex: 0.4;
+  border-right: 1px solid var(--twitter-background);
+  min-width: fit-content;
+  overflow-y: scroll;
+}
+
+.feedHeader {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  border: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+}
+
+.tweet-card {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+
+}
+
+.tweet_avatar {
+  padding: 20px;
+}
+
+.tweetBox {
+  padding-bottom: 10px;
+  border-bottom: 8px solid var(--twitter-background);
+  padding-right: 10px;
+}
+
+.tweetBox > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.tweetInput {
+  padding: 20px;
+  display: flex;
+}
+
+.tweetInput > input {
+  flex: 1;
+  margin-left: 20px;
+  font-size: 20px;
+  border: none;
+}
+
+.tweetButton {
+  border: none;
+  background-color: var(--twitter-color) !important;
+  color: white !important;
+  font-weight: 900 !important;
+  text-transform: inherit !important;
+  border-radius: 30px !important;
+  width: 80px;
+  height: 40px !important;
+  margin-top: 20px !important;
+  margin-left: auto !important;
+}
+
+.tweet-body {
+  flex: 1;
+  padding: 10px;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.tweet-container::-webkit-scrollbar {
+  display: none;
+}
+/* .input-wrap .input {
+  position: absolute;
+  width: 100%;
+  left: 0;
+} */
+
+.profile-card {
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+}
+
+span.main-username{
+  color: black;
+  font-weight: bold;
+  font-size: x-large;
+  
+}
+
+span.sub-username{
+  font-size: medium;
+  color: rgb(173, 173, 173)
+}
+

@@ -14,7 +14,7 @@ class TweetList extends Component {
       return <div>Loading...</div>
     } else {
       return (
-        <div>
+        <div className='tweet-container'>
           { this.props.tweets.sort(this.custom_sort).map((tweet) => (
               <div key={tweet.id}>
                 <TweetCard 
