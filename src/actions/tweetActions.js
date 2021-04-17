@@ -1,10 +1,15 @@
-import { FETCH_TWEETS, USER_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET } from './types';
+import { FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET } from './types';
 
-// fetchTweets initially returns a function, which is a part of Thunk's features
 export const fetchTweets = () => dispatch => {
-    fetch(tweet_api_url)
+  const token = localStorage.getItem("token")
+    fetch(`${tweet_api_url}_users`, {
+      method: "GET",
+        headers: {
+          "Authentication": `Bearer ${token}`
+        }
+    })
     .then(response => response.json())
-    .then(tweets => 
+    .then(tweets =>
       dispatch({
         type: FETCH_TWEETS,
         payload: tweets
@@ -13,7 +18,14 @@ export const fetchTweets = () => dispatch => {
 };
 
 export const userTweets = (currentUser) => dispatch => {
-  fetch(tweet_api_url)
+  const token = localStorage.getItem("token")
+    // let followedUsers = currentUser.user.followed_users
+    fetch(`${tweet_api_url}_users`, {
+      method: "GET",
+        headers: {
+          "Authentication": `Bearer ${token}`
+        }
+    })
     .then(response => response.json())
     .then(data => data.filter(tweet => (tweet.user.id === currentUser.user.id)))
     .then(tweets => 
@@ -22,6 +34,26 @@ export const userTweets = (currentUser) => dispatch => {
         payload: tweets
       })
     );
+}
+
+export const fetchUserSpecificTweets = (user) => dispatch => {
+  // console.log(user)
+  if (user) {
+    fetch('http://localhost:3001/api/v1/user_tweets', {
+      method: "GET",
+        headers: {
+          "UserId": user.id
+        }
+    })
+    .then(response => response.json())
+    .then(data => 
+      // console.log(data)
+      dispatch({
+        type: FETCH_USER_SPECIFIC_TWEETS,
+        payload: data
+      })
+    )
+  }
 }
 
 export const createTweet = (tweetFormData) => dispatch => {

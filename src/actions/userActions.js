@@ -1,4 +1,4 @@
-import { FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER } from './types';
+import { FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER, FETCH_FOLLOWED_USERS, FETCH_FOLLOWERS } from './types';
 
 export const fetchCurrentUser = () => dispatch => {
   const token = localStorage.getItem("token")
@@ -57,16 +57,17 @@ export const createUser = (data) => dispatch => {
   }))
 }
 
-export const deleteUser = (user) => dispatch => {
+export const deleteUser = (user, history) => dispatch => {
   fetch(`${USER_API_URL}/${user.id}`, {
     method: "DELETE",
     mode: 'cors'
   })
-  // .then(response => response.json())
-  // .then(data => dispatch({
-  //   type: DELETE_USER,
-  //   payload: data
-  // }))
+  .then(response => response.json())
+  .then(data => dispatch({
+    type: DELETE_USER,
+    payload: data
+  }))
+  history.push('/home')
 }
 
 export const editUser = (data) => dispatch => {
@@ -123,6 +124,42 @@ export const setCurrentUser = user => {
   }
 }
 
+export const fetchFollowedUsers = user => dispatch => {
+  if (user) {
+    fetch(`http://localhost:3001/api/v1/following`, {
+      method: "GET",
+      headers: {
+        "UserId": user.id
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({
+        type: FETCH_FOLLOWED_USERS,
+        payload: data
+      })
+    })
+  }
+}
+
+export const fetchFollowers = user => dispatch => {
+  if (user) {
+    fetch(`http://localhost:3001/api/v1/followers`, {
+      method: "GET",
+      headers: {
+        "UserId": user.id
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({
+        type: FETCH_FOLLOWERS,
+        payload: data
+      })
+    })
+  }
+}
+
 // PRIVATE
-const LOGIN_API_URL = 'http://localhost:3001/api/v1/login'
-const USER_API_URL = 'http://localhost:3001/api/v1/users'
+const LOGIN_API_URL = 'http://localhost:3001/api/v1/login';
+const USER_API_URL = 'http://localhost:3001/api/v1/users';

@@ -8,7 +8,7 @@ import { withRouter } from 'react-router'
 
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchTweets();
+    this.props.fetchTweets(this.props.currentUser);
   }
 
   render() {
@@ -26,8 +26,8 @@ class Home extends Component {
   
 
 const mapStateToProps = state => ({
-  tweets: state.tweetsData.tweets,
-  newTweet: state.tweetsData.tweet,
+  tweets: state.tweetsData.userAndFollowedTweets,
+  currentUser: state.userData.currentUser,
 })
 
 export default withRouter(connect(mapStateToProps, { fetchTweets })(Home));

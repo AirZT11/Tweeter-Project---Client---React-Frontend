@@ -27,7 +27,6 @@ class TweetForm extends Component {
       message: this.state.message,
       user_id: this.props.currentUser.id
     }
-    console.log(formData)
     this.props.createTweet(formData)
     this.getInitialState()
   }

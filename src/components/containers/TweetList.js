@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 
 class TweetList extends Component {
 
+  // sorts tweets array from most recent to least recent
   custom_sort = (a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   }

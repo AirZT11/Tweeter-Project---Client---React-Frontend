@@ -9,18 +9,20 @@ import 'reactjs-popup/dist/index.css';
 
 import { connect } from 'react-redux';
 import { userTweets } from '../../actions/tweetActions';
+import { fetchFollowedUsers, fetchFollowers } from '../../actions/userActions';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import TweetList from './TweetList';
-// import TweetForm from './TweetForm';
 import EditProfile from '../EditProfile';
 
 const Profile = props => {
-  const { userTweets, currentUser, tweets } = props;
+  const { userTweets, currentUser, tweets, fetchFollowedUsers, fetchFollowers, followedUsers, followers } = props;
 
   useEffect(() => {
-    console.log(currentUser)
-    userTweets(currentUser)
+    userTweets(currentUser);
+    fetchFollowedUsers(currentUser.user);
+    fetchFollowers(currentUser.user);
   }, [])
 
   // conditional function to check if user has profile pic
@@ -45,39 +47,42 @@ const Profile = props => {
             <span className='sub-username'> @{currentUser.user.username}</span><br />
           </div>
 
-            {/* working on creating a edit profile popup feature */}
-            <Popup trigger={<button className="button">Edit profile</button>} modal nested>
-              {close => (
-              <div className="modal">
-                <button className="close" onClick={close}>&times;</button>
-                <div className="header"> Edit Profile </div>
+          {/* working on creating a edit profile popup feature */}
+          <Popup trigger={<button className="button">Edit profile</button>} modal nested>
+            {close => (
+            <div className="modal">
+              <button className="close" onClick={close}>&times;</button>
+              <div className="header"> Edit Profile </div>
+              <EditProfile currentUser={currentUser}></EditProfile>
+              <button className="button" onClick={() => { close(); }} >close</button>
+            </div>
+            )}
+          </Popup>
 
-                <EditProfile currentUser={currentUser}></EditProfile>
+          <span>{tweets.length} tweets</span>
 
-                <button className="button" onClick={() => { close(); }} >close</button>
-              </div>
-              )}
-            </Popup>
-            
-            <span>{tweets.length} tweets</span><br />
-            <span>Followers </span><br />
-            <span>Following </span><br />
+          <Link to={`/following/${currentUser.user.id}`} style={{ textDecoration: 'none' }}>
+            {followedUsers.length} Following
+          </Link>
           
+          <Link to={`/followers/${currentUser.user.id}`} style={{ textDecoration: 'none' }}>
+            {followers.length} Followers
+          </Link>
+
         </div>
-          
-          
-        </div>
-        {/* <div className='tweetBox'></div> */}
-
-          {/* < TweetForm /> */}
-          < TweetList tweets={tweets} />  
+      </div>
+      {/* <div className='tweetBox'></div> */}
+      {/* < TweetForm /> */}
+      < TweetList tweets={tweets} />  
     </div>
   )
 }
 
 const mapStateToProps = state => ({
   tweets: state.tweetsData.userTweets,
-  currentUser: state.userData.currentUser
+  currentUser: state.userData.currentUser,
+  followedUsers: state.userData.followedUsers,
+  followers: state.userData.followers
 })
 
-export default withRouter(connect(mapStateToProps, { userTweets })(Profile))
+export default withRouter(connect(mapStateToProps, { userTweets, fetchFollowedUsers, fetchFollowers })(Profile))

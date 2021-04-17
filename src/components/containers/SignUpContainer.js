@@ -10,7 +10,6 @@ class SignUpContainer extends Component {
     super(props)
 
     this.state = {
-      // users: [],
       name: '',
       email: '',
       username: '',
@@ -27,7 +26,6 @@ class SignUpContainer extends Component {
   }
 
   handleFileChange = (event) => {
-    // console.log(event.target.files[0])
     this.setState({
       image: event.target.files[0]
     })
@@ -36,7 +34,9 @@ class SignUpContainer extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const { history } = this.props;
     this.props.createUser(this.state);
+    history.push('/login')
   }
 
   render() {

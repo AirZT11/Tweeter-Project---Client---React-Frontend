@@ -35,7 +35,7 @@ const NavBar = ({setCurrentUser, logged_in, currentUser}) => {
               to='/Search'
               exact
               className='nav-link'
-            >Search</NavLink>
+            >Search Users</NavLink>
           </li>
 
           <li>

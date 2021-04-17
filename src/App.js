@@ -8,17 +8,22 @@ import Search from './components/Search';
 import Profile from './components/containers/Profile';
 import User from './components/User';
 import NavBar from './components/containers/NavBar';
-import AllUsers from './components/AllUsers';
+import AllUsers from './components/containers/AllUsersContainer';
+import Following from './components/containers/FollowingContainer';
+import Followers from './components/containers/FollowersContainer';
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCurrentUser, fetchUsers } from './actions/userActions';
+import { fetchFollows } from './actions/followActions';
 
 class App extends Component {
 
   componentDidMount() {
       this.props.fetchCurrentUser()
       this.props.fetchUsers()
+      if (this.props.currentUser) this.props.fetchFollows()
   }
   
   render() {
@@ -33,12 +38,11 @@ class App extends Component {
                 < Home currentUser={this.props.currentUser} /> 
                 :
                 < Login /> )}>
-                  
             </Route>
 
             <Route exact path='/profile' render={() => this.props.loading ? 
               null : (this.props.currentUser ?
-              < Profile currentUser={this.props.currentUser} /> 
+              < Profile /> 
               :
               < Login /> )}>
             </Route>
@@ -47,15 +51,13 @@ class App extends Component {
               null : (this.props.currentUser ? < Settings />
               :
               < Login /> )}>
-
             </Route>
 
             <Route exact path='/user/:id' render={(props) => {
               if (this.props.users !== []) {
                 const userId = props.match.params.id
                 return < User user={this.props.users.find(u => u.id == userId)} />
-              }
-            }} />
+              }}} />
 
             <Route exact path='/login' render={() => this.props.currentUser ? 
                 < Redirect to="/" /> : < Login /> }>
@@ -67,13 +69,27 @@ class App extends Component {
 
             <Route exact path='/allUsers' component={AllUsers} />
 
+            <Route exact path='/following/:id' render={(props) => {
+              // if (this.props.users) {
+                const userId = props.match.params.id
+                return < Following 
+                user={this.props.users.find(u => u.id == userId)}/>
+              // }
+            }} />
+
+            <Route exact path='/followers/:id' render={(props) => {
+              // if (this.props.users) {
+                const userId = props.match.params.id
+                return < Followers 
+                user={this.props.users.find(u => u.id == userId)}/>
+              // }
+            }} />
+
           </Switch>
         </Router>
-
       </div>
     );
   }
-    
 }
 
 const mapStateToProps = state => ({
@@ -82,4 +98,4 @@ const mapStateToProps = state => ({
   loading: state.userData.loading
 })
 
-export default connect(mapStateToProps, { fetchCurrentUser, fetchUsers })(App);
+export default connect(mapStateToProps, { fetchCurrentUser, fetchUsers, fetchFollows})(App);

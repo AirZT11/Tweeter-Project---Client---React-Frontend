@@ -1,6 +1,7 @@
 // TWEET TYPES
 export const FETCH_TWEETS = 'FETCH_TWEETS';
 export const USER_TWEETS = 'USER_TWEETS';
+export const FETCH_USER_SPECIFIC_TWEETS = 'FETCH_USER_SPECIFIC_TWEETS';
 export const POST_TWEET = 'POST_TWEET';
 export const DELETE_TWEET = 'DELETE_TWEET';
 export const EDIT_TWEET = 'EDIT_TWEET';
@@ -15,11 +16,10 @@ export const EDIT_USER = 'EDIT_USER';
 export const LOGIN_USER= 'LOGIN_USER';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-
-// LIKE TYPES
-export const POST_LIKE = 'POST_LIKE';
-export const DELETE_LIKE = 'DELETE_LIKE';
+export const FETCH_FOLLOWED_USERS = 'FETCH_FOLLOWED_USERS';
+export const FETCH_FOLLOWERS = 'FETCH_FOLLOWERS';
 
 // FOLLOW TYPES
+export const FETCH_FOLLOWS = 'FETCH_FOLLOW';
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';

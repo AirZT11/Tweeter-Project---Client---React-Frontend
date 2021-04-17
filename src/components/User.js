@@ -1,16 +1,26 @@
 import React, { useEffect } from 'react';
 import TweetList from './containers/TweetList';
 import { Avatar } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { fetchTweets } from '../actions/tweetActions';
-import { follow } from '../actions/followActions';
+import { connect, useDispatch } from 'react-redux';
+import { fetchTweets, fetchUserSpecificTweets } from '../actions/tweetActions';
+import { fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
+import { follow, unfollow } from '../actions/followActions';
+import { Link } from 'react-router-dom';
 
-const User = props => {
-  const { fetchTweets, user, follow, currentUser } = props;
-
+const User = ({user, follow, unfollow, following, fetchUserSpecificTweets, tweets, followedUsers, followers}) => {
+ 
+  const dispatch = useDispatch()
+  
   useEffect(() => {
-    fetchTweets()
-  }, [])
+    fetchUserSpecificTweets(user);
+    dispatch(fetchFollowedUsers(user));
+    dispatch(fetchFollowers(user)); 
+  }, [user])
+  
+  // checks if current user follows user
+  const followsUser = () => {
+    return following.includes(user.id)    
+  }
 
   if (user) {
     return (
@@ -21,20 +31,25 @@ const User = props => {
             <span className='main-username'>{user.name}</span>
             <span className='sub-username'> @{user.username}</span><br />
             
-            {/* TODO: allow user to follow other users */}
-            <button className='tweetButton' onClick={()=> follow(user)} style={{float: 'right'}}>Follow</button>
+            {followsUser() ? 
+            <button className='tweetButton' onClick={()=> unfollow(user)} style={{float: 'right'}}>Unfollow</button>
+            :
+            <button className='tweetButton' onClick={()=> follow(user)} style={{float: 'right'}}>Follow</button>}
             
-            <span>{props.tweets.length} tweets</span><br />
+            <span>{tweets.length} tweets</span><br />
             
-            <span>Followers </span><br />
-            <span>Following </span>
+            <Link to={`/following/${user.id}`} style={{ textDecoration: 'none' }}>
+              {followedUsers.length} Following
+            </Link>
+            <br />
+            <Link to={`/followers/${user.id}`} style={{ textDecoration: 'none' }}>
+              {followers.length} Followers
+            </Link>
+
           </div>
         </div>
 
-        < TweetList 
-            tweets={props.tweets} 
-            handleDeleteTweet={props.handleDeleteTweet} 
-        />  
+        < TweetList tweets={tweets} />  
 
       </div>
     )
@@ -43,9 +58,11 @@ const User = props => {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  tweets: state.tweetsData.tweets.filter(t => t.user.id === ownProps.user.id),
-  currentUser: state.userData.currentUser.user
+const mapStateToProps = (state) => ({
+  tweets: state.tweetsData.userSpecificTweets,
+  following: state.followData.following,
+  followedUsers: state.userData.followedUsers,
+  followers: state.userData.followers
 })
 
-export default connect(mapStateToProps, { fetchTweets, follow })(User)
+export default connect(mapStateToProps, { fetchTweets, follow, unfollow, fetchUserSpecificTweets, fetchFollowedUsers, fetchFollowers })(User)

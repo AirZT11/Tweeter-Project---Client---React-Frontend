@@ -1,8 +1,9 @@
-import { FETCH_TWEETS, USER_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET } from '../actions/types';
+import { FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET } from '../actions/types';
 
 const initialState = {
-  tweets: [],
+  userAndFollowedTweets: [],
   userTweets: [],
+  userSpecificTweets: [],
   tweet: {}
 }
  
@@ -12,31 +13,36 @@ export default function tweetReducer(state = initialState, action) {
     case FETCH_TWEETS:
       return {
         ...state,
-        tweets: action.payload
+        userAndFollowedTweets: action.payload
       }
     case USER_TWEETS:
       return {
         ...state,
         userTweets: action.payload
       }
+    case FETCH_USER_SPECIFIC_TWEETS:
+      return {
+        ...state,
+        userSpecificTweets: action.payload
+      }
     case POST_TWEET:
       return {
         ...state,
-        tweets: [...state.tweets, action.payload]
+        userAndFollowedTweets: [...state.userAndFollowedTweets, action.payload]
       }
     case DELETE_TWEET:
-      const filteredTweets = state.tweets.filter(tweet => tweet.id !== action.payload.id)
+      const filteredTweets = state.userAndFollowedTweets.filter(tweet => tweet.id !== action.payload.id)
       const userFilteredTweets = state.userTweets.filter(tweet => tweet.id !== action.payload.id)
       return { 
         ...state,
-        tweets: filteredTweets,
+        userAndFollowedTweets: filteredTweets,
         userTweets: userFilteredTweets
       }
     case EDIT_TWEET:
-      const editedTweets = state.tweets.filter(tweet => tweet.id !== action.payload.id)
+      const editedTweets = state.userAndFollowedTweets.filter(tweet => tweet.id !== action.payload.id)
       return {
         ...state,
-        tweets: [...editedTweets, action.payload]
+        userAndFollowedTweets: [...editedTweets, action.payload]
       }
     default: 
       return state;
