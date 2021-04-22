@@ -61,18 +61,16 @@ const Profile = props => {
 
           <span>{tweets.length} tweets</span>
 
-          <Link to={`/following/${currentUser.user.id}`} style={{ textDecoration: 'none' }}>
-            {followedUsers.length} Following
-          </Link>
-          
           <Link to={`/followers/${currentUser.user.id}`} style={{ textDecoration: 'none' }}>
             {followers.length} Followers
           </Link>
 
+          <Link to={`/following/${currentUser.user.id}`} style={{ textDecoration: 'none' }}>
+            {followedUsers.length} Following
+          </Link>
+
         </div>
       </div>
-      {/* <div className='tweetBox'></div> */}
-      {/* < TweetForm /> */}
       < TweetList tweets={tweets} />  
     </div>
   )

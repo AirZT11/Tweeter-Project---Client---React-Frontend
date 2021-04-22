@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import AllUsers from './containers/AllUsersContainer';
 import { connect } from 'react-redux';
-import { useEffect } from 'react-redux';
 import { fetchUsers } from '../actions/userActions';
+import '../css/TweetList.css'
 
 class Search extends Component {
   constructor(props) {
@@ -12,26 +12,37 @@ class Search extends Component {
     }
   }
 
+  componentDidMount() {
+    fetchUsers();
+  }
+
   handleChange = (e) => {
     this.setState({
       input: e.target.value
     })
   }
 
-  render() {
-    // finds users based on search input
-    let users = this.props.users.filter(user => 
+  // finds users based on search input
+  users = () => {
+    if (this.props.users) {
+    return this.props.users.filter(user => 
       user.username.includes(this.state.input)
     )
+  }}
+
+  render() {
+    
 
     return (
-      <div>
-        <h1>Search Users</h1>
-        <form>
-          <label htmlFor='search'>Search</label><br />
-          <input type='text' value={this.state.input} onChange={this.handleChange} />
-          < AllUsers users={users} />
-        </form>
+      <div className='tweet-container'>
+        <div className='feedHeader'>
+          <h2>Search Users</h2>
+          <form className='tweetInput'>
+            <label htmlFor='search'></label><br />
+            <input type='text' value={this.state.input}  placeholder='search users...' onChange={this.handleChange} />  
+          </form>
+        </div>
+        < AllUsers users={this.users()} />
       </div>
     )
   }
@@ -41,4 +52,4 @@ const mapStateToProps = state => ({
   users: state.userData.users
 })
 
-export default connect(mapStateToProps)(Search)
+export default connect(mapStateToProps, { fetchUsers })(Search)

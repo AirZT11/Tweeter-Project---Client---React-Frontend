@@ -1,4 +1,4 @@
-import { FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER, FETCH_FOLLOWED_USERS, FETCH_FOLLOWERS} from '../actions/types';
+import { FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER, FETCH_FOLLOWED_USERS, FETCH_FOLLOWERS, USER_INITIALIZE} from '../actions/types';
 
 const initialState = {
   currentUser: null,
@@ -10,6 +10,12 @@ const initialState = {
 
 export default function userReducer(state = initialState, action) {
   switch(action.type) {
+    case LOGIN_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+        loading: false
+      }
     case FETCH_CURRENT_USER:
       return {
         ...state,
@@ -43,11 +49,6 @@ export default function userReducer(state = initialState, action) {
         ...state,
         users: [...editedUsers, action.payload]
       }
-    case LOGIN_USER:
-      return {
-        ...state,
-        currentUser: action.payload
-      }
     case LOGIN_FAILED:
       alert(action.payload)
       return {
@@ -69,6 +70,8 @@ export default function userReducer(state = initialState, action) {
         ...state,
         followers: action.payload
       }
+    case USER_INITIALIZE:
+      return initialState
     default:
       return state;
   }

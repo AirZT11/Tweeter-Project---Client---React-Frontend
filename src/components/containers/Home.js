@@ -4,11 +4,15 @@ import TweetList from './TweetList'
 import TweetForm from './TweetForm'
 import { connect } from 'react-redux';
 import { fetchTweets } from '../../actions/tweetActions';
+import { fetchUsers } from '../../actions/userActions';
+import { fetchFollows } from '../../actions/followActions';
 import { withRouter } from 'react-router'
 
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchTweets(this.props.currentUser);
+    this.props.fetchTweets();
+    this.props.fetchUsers();
+    this.props.fetchFollows();
   }
 
   render() {
@@ -30,4 +34,4 @@ const mapStateToProps = state => ({
   currentUser: state.userData.currentUser,
 })
 
-export default withRouter(connect(mapStateToProps, { fetchTweets })(Home));
+export default withRouter(connect(mapStateToProps, { fetchTweets, fetchUsers, fetchFollows })(Home));

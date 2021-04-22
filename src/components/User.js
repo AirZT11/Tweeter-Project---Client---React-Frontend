@@ -22,12 +22,17 @@ const User = ({user, follow, unfollow, following, fetchUserSpecificTweets, tweet
     return following.includes(user.id)    
   }
 
+  // conditional to check if user has profile pic
+  let profilePic = '';
+  if (user.image) { profilePic = user.image.url; } 
+  else { profilePic = null; }
+
   if (user) {
     return (
       <div className='tweet-container'>
         <div className='profile-card'>
           <div className='tweet-body'>
-            <Avatar src={user.image.url} />
+            <Avatar src={profilePic} />
             <span className='main-username'>{user.name}</span>
             <span className='sub-username'> @{user.username}</span><br />
             

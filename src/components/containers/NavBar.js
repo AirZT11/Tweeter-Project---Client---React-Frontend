@@ -1,12 +1,28 @@
 import React from 'react';
 import '../../css/NavBar.css'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import '../../css/Popup.css';
+
+import HomeIcon from '@material-ui/icons/Home';
+import PersonIcon from '@material-ui/icons/Person';
+import SearchIcon from '@material-ui/icons/Search';
+import SettingsIcon from '@material-ui/icons/Settings';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setCurrentUser } from '../../actions/userActions';
+import { userInitialize } from '../../actions/userActions';
+import { tweetInitialize } from '../../actions/tweetActions';
+import { followInitialize } from '../../actions/followActions';
+import TweetForm from '../containers/TweetForm';
 
-const NavBar = ({setCurrentUser, logged_in, currentUser}) => {
+const NavBar = ({ logged_in, currentUser, userInitialize, tweetInitialize, followInitialize}) => {
   let logout = () => {
-    setCurrentUser(null)
+    userInitialize();
+    tweetInitialize();
+    followInitialize();
     localStorage.clear();
   }
 
@@ -19,7 +35,7 @@ const NavBar = ({setCurrentUser, logged_in, currentUser}) => {
             to='/'
             exact
             className='nav-link'
-            >Home</NavLink>
+            >{<HomeIcon />}Home</NavLink>
           </li>
         
           <li>
@@ -27,7 +43,7 @@ const NavBar = ({setCurrentUser, logged_in, currentUser}) => {
               to='/profile'
               exact
               className='nav-link'
-            >Profile</NavLink>
+            >{<PersonIcon />}Profile</NavLink>
           </li>
 
           <li>
@@ -35,14 +51,14 @@ const NavBar = ({setCurrentUser, logged_in, currentUser}) => {
               to='/Search'
               exact
               className='nav-link'
-            >Search Users</NavLink>
+            >{<SearchIcon />}Search</NavLink>
           </li>
 
           <li>
             <NavLink 
               to="/settings" 
               className='nav-link' 
-            >Settings</NavLink>
+            >{<SettingsIcon />}Settings</NavLink>
           </li>
 
           <li>
@@ -50,48 +66,29 @@ const NavBar = ({setCurrentUser, logged_in, currentUser}) => {
               to="/login" 
               className='nav-link' 
               onClick={logout}
-            >Logout</NavLink>
+            >{<ExitToAppIcon />}Logout</NavLink>
+          </li>
+
+          <li className='last-child'>
+            <Popup trigger={<div className='nav-link'>{<TwitterIcon />}Tweet</div>} modal nested>
+              {close => (
+              <div className="modal">
+                <button className="close" onClick={close}>&times;</button>
+                <div className="header"> Tweet </div>
+                <TweetForm />
+                <button className="button" onClick={() => { close(); }} >close</button>
+              </div>
+              )}
+            </Popup>
           </li>
         </ul>
       </div>
     ) 
   } 
-  // TODO: set an AllUsers navlink when ADMIN is loggedin
-  // else if (currentUser.user.id === 13 && logged_in){
-  //   return(
-  //   <div className='nav-bar'>
-  //       <ul>
-  //         <li>
-  //           <NavLink
-  //           to='/AllUsers'
-  //           exact
-  //           className='nav-link'
-  //           >All Users</NavLink>
-  //         </li>
-
-  //         <li>
-  //           <NavLink 
-  //             to="/login" 
-  //             className='nav-link' 
-  //             onClick={logout}
-  //           >Logout</NavLink>
-  //         </li>
-  //       </ul>
-  //   </div>
-  //   )
-  // } 
   else {
     return(
       <div className='nav-bar'>
         <ul>
-          <li>
-            <NavLink
-              to='/'
-              exact
-              className='nav-link'
-            >Home</NavLink>
-          </li>
-
           <li>
             <NavLink
               to='/SignUp'
@@ -117,4 +114,4 @@ const mapStateToProps = state => ({
   currentUser: state.userData.currentUser
 })
 
-export default connect(mapStateToProps, { setCurrentUser })(NavBar);
+export default connect(mapStateToProps, { userInitialize, tweetInitialize, followInitialize })(NavBar);

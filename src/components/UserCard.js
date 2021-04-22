@@ -11,10 +11,15 @@ const UserCard = ({user, follow, unfollow, following}) => {
     return following.includes(user.id)    
   }
 
+  // conditional to check if user has profile pic
+  let profilePic = '';
+  if (user.image) { profilePic = user.image.url; } 
+  else { profilePic = null; }
+
   return (
-    <div>
+    <div className='tweet-card'>
       <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
-        <span><Avatar src={user.image.url} /></span>
+        <span><Avatar src={profilePic} /></span>
         <span className='main-username'>{user.username}</span>
         <span className='sub-username'> @{user.username}</span>
       </Link>

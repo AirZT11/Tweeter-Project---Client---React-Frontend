@@ -1,0 +1,11 @@
+.signin-container {
+  display: flex;
+  padding: 20px;
+  margin-right: 50px;
+  min-width: 50%;
+}
+
+.error {
+  font-style: italic;
+  color: red;
+}

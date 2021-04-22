@@ -1,4 +1,4 @@
-import { FETCH_FOLLOWS, FOLLOW, UNFOLLOW } from '../actions/types';
+import { FETCH_FOLLOWS, FOLLOW, UNFOLLOW, FOLLOW_INITIALIZE } from '../actions/types';
 
 const initialState = {
   following: [],
@@ -23,6 +23,8 @@ export default function followReducer(state = initialState, action) {
         ...state,
         following: filteredFollowing
       }
+    case FOLLOW_INITIALIZE:
+      return initialState
     default:
       return state
   }

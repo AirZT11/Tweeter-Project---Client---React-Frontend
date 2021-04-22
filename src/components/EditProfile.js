@@ -24,7 +24,6 @@ class EditProfile extends Component {
   }
 
   handleFileChange = (event) => {
-    // console.log(event.target.files[0])
     this.setState({
       image: event.target.files[0]
     })
@@ -38,8 +37,6 @@ class EditProfile extends Component {
   render() {
     return (
       <div className="tweet-container">
-        {/* {console.log(this.props.currentUser.user.image.url)} */}
-        {/* <img src={this.props.currentUser.user.image.url}></img> */}
         <form onSubmit={this.handleSubmit}>
           
           <label htmlFor='name'>Name: </label><br />
@@ -57,13 +54,7 @@ class EditProfile extends Component {
         </form>
       </div>
     )
-  }
-    
+  }   
 }
 
-const mapStateToProps = state => ({
-  //tweets: state.tweetsData.userTweets,
-  //currentUser: state.userData.currentUser
-})
-
-export default withRouter(connect(mapStateToProps, { editUser })(EditProfile))
+export default withRouter(connect(null, { editUser })(EditProfile))

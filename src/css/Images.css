@@ -1,0 +1,26 @@
+.tweet-img {
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.image-upload-icon {
+
+}
+
+.image-upload {
+  display: none;
+}
+
+.image-upload-icon:hover {
+  /* background-color: var(--twitter-hover); */
+  border-radius: 30px;
+  color: var(--twitter-hover);
+  transition: color 200ms ease-out;
+  cursor: pointer;
+}
+
+.preview__image {
+  border-radius: 8px;
+  max-width: 300px;
+  /* display: hidden; */
+}

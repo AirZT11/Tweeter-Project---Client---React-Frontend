@@ -1,8 +1,8 @@
 /* TWEET CARDS */
 .tweet-container {
   flex: 0.4;
-  border-right: 1px solid var(--twitter-background);
-  min-width: fit-content;
+  border-right: 0px solid var(--twitter-background);
+  min-width: 50%;
   overflow-y: scroll;
 }
 
@@ -20,7 +20,7 @@
   align-items: flex-start;
   border-bottom: 1px solid var(--twitter-background);
   padding-bottom: 10px;
-
+  padding-right: 20px
 }
 
 .tweet_avatar {
@@ -35,32 +35,44 @@
 
 .tweetBox > form {
   display: flex;
+  /* flex: auto; */
   flex-direction: column;
 }
 
 .tweetInput {
-  padding: 20px;
+  /* padding: 20px; */
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
 }
 
 .tweetInput > input {
   flex: 1;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   font-size: 20px;
   border: none;
+  padding: 20px
 }
 
 .tweetButton {
   border: none;
-  background-color: var(--twitter-color) !important;
-  color: white !important;
-  font-weight: 900 !important;
-  text-transform: inherit !important;
-  border-radius: 30px !important;
+  background-color: var(--twitter-color);
+  color: white;
+  font-weight: 900;
+  /* text-transform: inherit; */
+  border-radius: 30px;
   width: 80px;
-  height: 40px !important;
-  margin-top: 20px !important;
-  margin-left: auto !important;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: auto;
+}
+
+.tweetButton:hover {
+  background-color: var(--twitter-hover);
+  border-radius: 30px;
+  color: #e8f5fe;
+  transition: color 200ms ease-out;
+  cursor: pointer;
 }
 
 .tweet-body {
@@ -98,3 +110,11 @@ span.sub-username{
   color: rgb(173, 173, 173)
 }
 
+.tweet__message {
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.tweet__message > p {
+  line-height: 30px;
+}

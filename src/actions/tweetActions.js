@@ -1,7 +1,11 @@
-import { FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET } from './types';
+import { FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET, TWEET_ERROR, TWEET_INITIALIZE } from './types';
+
+// let token = localStorage.getItem("token");
+const tweet_api_url = 'http://localhost:3001/api/v1/tweets';
 
 export const fetchTweets = () => dispatch => {
-  const token = localStorage.getItem("token")
+  let token = localStorage.getItem("token");
+  console.log(token)
     fetch(`${tweet_api_url}_users`, {
       method: "GET",
         headers: {
@@ -9,7 +13,7 @@ export const fetchTweets = () => dispatch => {
         }
     })
     .then(response => response.json())
-    .then(tweets =>
+    .then(tweets => //console.log(tweets)
       dispatch({
         type: FETCH_TWEETS,
         payload: tweets
@@ -18,8 +22,7 @@ export const fetchTweets = () => dispatch => {
 };
 
 export const userTweets = (currentUser) => dispatch => {
-  const token = localStorage.getItem("token")
-    // let followedUsers = currentUser.user.followed_users
+  let token = localStorage.getItem("token");  
     fetch(`${tweet_api_url}_users`, {
       method: "GET",
         headers: {
@@ -33,11 +36,11 @@ export const userTweets = (currentUser) => dispatch => {
         type: USER_TWEETS,
         payload: tweets
       })
-    );
+    )
+    
 }
 
 export const fetchUserSpecificTweets = (user) => dispatch => {
-  // console.log(user)
   if (user) {
     fetch('http://localhost:3001/api/v1/user_tweets', {
       method: "GET",
@@ -47,7 +50,6 @@ export const fetchUserSpecificTweets = (user) => dispatch => {
     })
     .then(response => response.json())
     .then(data => 
-      // console.log(data)
       dispatch({
         type: FETCH_USER_SPECIFIC_TWEETS,
         payload: data
@@ -59,19 +61,26 @@ export const fetchUserSpecificTweets = (user) => dispatch => {
 export const createTweet = (tweetFormData) => dispatch => {
   fetch(tweet_api_url, {
     method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": 'application/json'
-    },
-    body: JSON.stringify(tweetFormData)
+    body: tweetFormData
   })
   .then(response => response.json())
-  .then(tweet => 
-    dispatch({
-      type: POST_TWEET,
-      payload: tweet.tweet
-    })
-  )
+  .then(tweet => {
+    if (tweet.errors) {
+      dispatch({
+        type: TWEET_ERROR,
+        payload: tweet.errors
+      })
+    } else {
+      dispatch({
+        type: POST_TWEET,
+        payload: tweet.tweet
+      })
+    }
+  })
+  .catch(error => {
+    console.log(error)
+  })
+  
 };
 
 export const deleteTweet = (tweet) => dispatch => {
@@ -107,7 +116,8 @@ export const editTweet = (tweetData) => dispatch => {
   )
 }
 
-
-// PRIVATE
-const tweet_api_url = 'http://localhost:3001/api/v1/tweets'
-
+export const tweetInitialize = () => dispatch => {
+  dispatch({
+    type: TWEET_INITIALIZE
+  })
+}

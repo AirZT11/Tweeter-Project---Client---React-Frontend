@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import '../css/TweetList.css'
+import '../css/Images.css'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Avatar } from '@material-ui/core';
 import EditForm from './EditForm'
 import { Link } from 'react-router-dom'
@@ -23,7 +25,6 @@ class TweetCard extends Component {
     
     const filteredLikes = this.state.likes.filter(like =>
       like.user_id !== userAndTweet.currentUser.user.id)
-    
 
     if (userLikedTweet) {
       console.log('deleting like')
@@ -67,6 +68,17 @@ class TweetCard extends Component {
     } 
   }
 
+  // conditional function to check if tweet image exists
+  imageExists = () => {
+    let tweetPic = '';
+    if (this.props.tweet.image) {
+      tweetPic = this.props.tweet.image.url;
+    } else {
+      tweetPic = null;
+    }
+    return tweetPic
+  }
+
   render() {
     const currentUserAndTweet = {
       currentUser: this.props.currentUser,
@@ -89,44 +101,50 @@ class TweetCard extends Component {
       deleteEditViewStyle.display= 'none'
     }
 
-    // conditional function to check if user has profile pic
+    // conditional to check if user has profile pic
     let profilePic = '';
     if (this.props.tweet.user.image) { profilePic = this.props.tweet.user.image.url; } 
     else { profilePic = null; }
 
     return (
       <div className='tweet-card'>
-          {/* {console.log(this.props.tweet.user)} */}
-          <div className='tweet-body'>
-            <Link to={`/user/${this.props.tweet.user.id}`} style={{ textDecoration: 'none' }}>
-              <span><Avatar src={profilePic} /></span>
-              <span className='main-username'>{this.props.tweet.user.username}</span>
-              <span className='sub-username'> @{this.props.tweet.user.username}</span>
-            </Link>
+        <span className='tweet_avatar'>
+          <Link to={`/user/${this.props.tweet.user.id}`} style={{ textDecoration: 'none' }}>
+            <Avatar src={profilePic} />
+          </Link>
+        </span>
 
-          <p>{this.props.tweet.message}</p>
-
-          <div style={deleteEditViewStyle}>
-            <button onClick={this.handleEditClick}>edit</button>
-      
-            <div style={editViewStyle}>
-              < EditForm 
-                  currentUser={this.props.currentUser}
-                  tweetValue={this.props.tweet.message} 
-                  tweet={this.props.tweet}
-                  handleEditClick={this.handleEditClick} />
+        <div className='tweet-body'>
+          <Link to={`/user/${this.props.tweet.user.id}`} style={{ textDecoration: 'none' }}>
+            <span className='main-username'>{this.props.tweet.user.username}</span>
+            <span className='sub-username'> @{this.props.tweet.user.username}</span>
+          </Link>
+          
+          <div className='tweet__message'>
+            <p>{this.props.tweet.message}</p>
+            <img className="tweet-img" src={this.imageExists()}></img>
+            <div style={deleteEditViewStyle}>
+              <button onClick={this.handleEditClick}>edit</button>
+        
+              <div style={editViewStyle}>
+                < EditForm 
+                    currentUser={this.props.currentUser}
+                    tweetValue={this.props.tweet.message} 
+                    tweet={this.props.tweet}
+                    handleEditClick={this.handleEditClick} />
+              </div>
+            
+              <button onClick={() => this.props.deleteTweet(this.props.tweet)}>Delete</button>
+            
             </div>
-          
-            <button onClick={() => this.props.deleteTweet(this.props.tweet)}>Delete</button>
-          
-          </div><br />
 
-          <button onClick={() => this.handleLike(currentUserAndTweet)} style={{float: 'right'}}>
-            Like {this.state.likesLength}
-            {/* Like {console.log(this.props.likes)} */}
-          </button>
-          
-          <p>{dateString}</p>
+            <div style={{float: 'right'}}>
+            <FavoriteBorderIcon onClick={() => this.handleLike(currentUserAndTweet)}  />
+            {this.state.likesLength}
+            </div>
+            
+            <p>{dateString}</p> 
+          </div>
         </div>
       </div>  
     )

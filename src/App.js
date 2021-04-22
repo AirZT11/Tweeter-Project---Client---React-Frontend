@@ -11,6 +11,7 @@ import NavBar from './components/containers/NavBar';
 import AllUsers from './components/containers/AllUsersContainer';
 import Following from './components/containers/FollowingContainer';
 import Followers from './components/containers/FollowersContainer';
+import WidgetsContainer from './components/containers/WidgetsContainer';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
@@ -21,9 +22,7 @@ import { fetchFollows } from './actions/followActions';
 class App extends Component {
 
   componentDidMount() {
-      this.props.fetchCurrentUser()
-      this.props.fetchUsers()
-      if (this.props.currentUser) this.props.fetchFollows()
+      this.props.fetchCurrentUser();
   }
   
   render() {
@@ -84,8 +83,9 @@ class App extends Component {
                 user={this.props.users.find(u => u.id == userId)}/>
               // }
             }} />
-
+            
           </Switch>
+          <WidgetsContainer currentUser={this.props.currentUser}  />
         </Router>
       </div>
     );

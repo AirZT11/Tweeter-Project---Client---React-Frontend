@@ -1,27 +1,28 @@
-import { FETCH_FOLLOWS, FOLLOW, UNFOLLOW } from './types';
-
-const token = localStorage.getItem("token")
+import { FETCH_FOLLOWS, FOLLOW, UNFOLLOW, FOLLOW_INITIALIZE } from './types';
 
 export const fetchFollows = () => dispatch => {
-  fetch(`http://localhost:3001/api/v1/profile`, {
-    method: "GET",
-    headers: {
-      "Authentication": `Bearer ${token}`
-    }
-  })
-  .then(resp => resp.json())
-  .then(data => data.user.followed_users.map(follow => {
-    return follow.followee_id
-  }))
-  .then(followData => 
-    dispatch({
-      type: FETCH_FOLLOWS,
-      payload: followData
+  let token = localStorage.getItem("token")
+  if (token) {
+    fetch(`http://localhost:3001/api/v1/profile`, {
+      method: "GET",
+      headers: {
+        "Authentication": `Bearer ${token}`
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => data.user.followed_users.map(follow => {
+      return follow.followee_id
     }))
+    .then(followData => 
+      dispatch({
+        type: FETCH_FOLLOWS,
+        payload: followData
+      }))
+  }
 }
 
-
 export const follow = (user) => dispatch => {
+  let token = localStorage.getItem("token")
   fetch(`http://localhost:3001/api/v1/users/${user.id}/follow`, {
     method: "POST",
       mode: "cors",
@@ -39,10 +40,10 @@ export const follow = (user) => dispatch => {
       payload: data.followData.id
     })
   )
-
 }
 
 export const unfollow = (user) => dispatch => {
+  let token = localStorage.getItem("token")
   fetch(`http://localhost:3001/api/v1/users/${user.id}/unfollow`, {
     method: "POST",
       mode: "cors",
@@ -60,5 +61,10 @@ export const unfollow = (user) => dispatch => {
       payload: data.followData.id
     })
   )
+}
 
+export const followInitialize = () => dispatch => {
+  dispatch({
+    type: FOLLOW_INITIALIZE
+  })
 }
