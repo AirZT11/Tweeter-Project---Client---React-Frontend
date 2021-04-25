@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { follow, unfollow } from '../actions/followActions';
+import { follow, unfollow, fetchFollows } from '../actions/followActions';
+import { fetchTweets } from '../actions/tweetActions';
 
-const UserCard = ({user, follow, unfollow, following}) => {
+const UserCard = ({user, follow, unfollow, following, fetchFollows, fetchTweets}) => {
   
   // checks if current user follows user
   const followsUser = () => {
@@ -37,4 +38,4 @@ const mapStateToProps = state => ({
   following: state.followData.following,
 })
 
-export default connect(mapStateToProps, { follow, unfollow })(UserCard);
+export default connect(mapStateToProps, { follow, unfollow, fetchFollows, fetchTweets })(UserCard);

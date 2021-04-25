@@ -28,8 +28,8 @@ export default function tweetReducer(state = initialState, action) {
     case POST_TWEET:
       return {
         ...state,
-        userAndFollowedTweets: [...state.userAndFollowedTweets, action.payload],
-        userTweets: [...state.userTweets, action.payload]
+        userAndFollowedTweets: [action.payload, ...state.userAndFollowedTweets],
+        userTweets: [action.payload, ...state.userTweets]
       }
     case DELETE_TWEET:
       const filteredTweets = state.userAndFollowedTweets.filter(tweet => tweet.id !== action.payload.id)

@@ -61,6 +61,7 @@
   font-weight: 900;
   /* text-transform: inherit; */
   border-radius: 30px;
+  min-width: 80px;
   width: 80px;
   height: 40px;
   margin-top: 20px;

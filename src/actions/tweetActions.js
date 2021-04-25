@@ -1,5 +1,7 @@
 import { FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET, TWEET_ERROR, TWEET_INITIALIZE } from './types';
 
+// import { fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
+
 // let token = localStorage.getItem("token");
 const tweet_api_url = 'http://localhost:3001/api/v1/tweets';
 
@@ -13,7 +15,7 @@ export const fetchTweets = () => dispatch => {
         }
     })
     .then(response => response.json())
-    .then(tweets => //console.log(tweets)
+    .then(tweets =>
       dispatch({
         type: FETCH_TWEETS,
         payload: tweets
@@ -37,6 +39,8 @@ export const userTweets = (currentUser) => dispatch => {
         payload: tweets
       })
     )
+    // .then(() => dispatch(fetchFollowedUsers(currentUser.user)))
+    // .then(() => dispatch(fetchFollowers(currentUser.user)))
     
 }
 

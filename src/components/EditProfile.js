@@ -13,7 +13,6 @@ class EditProfile extends Component {
       name: this.props.currentUser.user.name,
       email: this.props.currentUser.user.email,
       username: this.props.currentUser.user.username,
-      image: this.props.currentUser.user.image
     }
   }
 
@@ -31,6 +30,7 @@ class EditProfile extends Component {
 
   handleSubmit = event => {
     // event.preventDefault();
+    console.log(this.state)
     this.props.editUser(this.state);
   }
 

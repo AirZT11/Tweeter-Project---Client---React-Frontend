@@ -1,4 +1,5 @@
 import { FETCH_FOLLOWS, FOLLOW, UNFOLLOW, FOLLOW_INITIALIZE } from './types';
+import { fetchTweets } from './tweetActions';
 
 export const fetchFollows = () => dispatch => {
   let token = localStorage.getItem("token")
@@ -40,6 +41,7 @@ export const follow = (user) => dispatch => {
       payload: data.followData.id
     })
   )
+  .then(() => dispatch(fetchTweets()))
 }
 
 export const unfollow = (user) => dispatch => {
@@ -61,6 +63,7 @@ export const unfollow = (user) => dispatch => {
       payload: data.followData.id
     })
   )
+  .then(() => dispatch(fetchTweets()))
 }
 
 export const followInitialize = () => dispatch => {
