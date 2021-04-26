@@ -1,14 +1,15 @@
-import { FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET, TWEET_ERROR, TWEET_INITIALIZE } from './types';
+import { API_URL, FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET, TWEET_ERROR, TWEET_INITIALIZE } from './types';
 
 // import { fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
 
 // let token = localStorage.getItem("token");
-const tweet_api_url = 'http://localhost:3001/api/v1/tweets';
+// const API_URL = 'https://tweeter-heroku-backend.herokuapp.com/api/v1';
+const TWEET_API_URL = API_URL + '/tweets';
 
 export const fetchTweets = () => dispatch => {
   let token = localStorage.getItem("token");
-  console.log(token)
-    fetch(`${tweet_api_url}_users`, {
+  // console.log(token)
+    fetch(`${TWEET_API_URL}_users`, {
       method: "GET",
         headers: {
           "Authentication": `Bearer ${token}`
@@ -25,7 +26,7 @@ export const fetchTweets = () => dispatch => {
 
 export const userTweets = (currentUser) => dispatch => {
   let token = localStorage.getItem("token");  
-    fetch(`${tweet_api_url}_users`, {
+    fetch(`${TWEET_API_URL}_users`, {
       method: "GET",
         headers: {
           "Authentication": `Bearer ${token}`
@@ -46,7 +47,7 @@ export const userTweets = (currentUser) => dispatch => {
 
 export const fetchUserSpecificTweets = (user) => dispatch => {
   if (user) {
-    fetch('http://localhost:3001/api/v1/user_tweets', {
+    fetch(API_URL + '/user_tweets', {
       method: "GET",
         headers: {
           "UserId": user.id
@@ -63,7 +64,7 @@ export const fetchUserSpecificTweets = (user) => dispatch => {
 }
 
 export const createTweet = (tweetFormData) => dispatch => {
-  fetch(tweet_api_url, {
+  fetch(TWEET_API_URL, {
     method: "POST",
     body: tweetFormData
   })
@@ -88,7 +89,7 @@ export const createTweet = (tweetFormData) => dispatch => {
 };
 
 export const deleteTweet = (tweet) => dispatch => {
-  fetch(`${tweet_api_url}/${tweet.id}`, {
+  fetch(`${TWEET_API_URL}/${tweet.id}`, {
     method: "DELETE"
   })
   .then(() => 
@@ -100,7 +101,7 @@ export const deleteTweet = (tweet) => dispatch => {
 }
 
 export const editTweet = (tweetData) => dispatch => {
-  const editURL = tweet_api_url + `/${tweetData.id}`;
+  const editURL = TWEET_API_URL + `/${tweetData.id}`;
   fetch(editURL, {
     method: 'PATCH',
     headers: {

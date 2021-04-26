@@ -1,10 +1,12 @@
-import { FETCH_FOLLOWS, FOLLOW, UNFOLLOW, FOLLOW_INITIALIZE } from './types';
+import { API_URL, FETCH_FOLLOWS, FOLLOW, UNFOLLOW, FOLLOW_INITIALIZE } from './types';
 import { fetchTweets } from './tweetActions';
+
+// const API_URL = 'https://tweeter-heroku-backend.herokuapp.com/api/v1';
 
 export const fetchFollows = () => dispatch => {
   let token = localStorage.getItem("token")
   if (token) {
-    fetch(`http://localhost:3001/api/v1/profile`, {
+    fetch(API_URL + '/profile', {
       method: "GET",
       headers: {
         "Authentication": `Bearer ${token}`
@@ -24,7 +26,7 @@ export const fetchFollows = () => dispatch => {
 
 export const follow = (user) => dispatch => {
   let token = localStorage.getItem("token")
-  fetch(`http://localhost:3001/api/v1/users/${user.id}/follow`, {
+  fetch(`${API_URL}/users/${user.id}/follow`, {
     method: "POST",
       mode: "cors",
       headers: {
@@ -46,7 +48,7 @@ export const follow = (user) => dispatch => {
 
 export const unfollow = (user) => dispatch => {
   let token = localStorage.getItem("token")
-  fetch(`http://localhost:3001/api/v1/users/${user.id}/unfollow`, {
+  fetch(`${API_URL}/users/${user.id}/unfollow`, {
     method: "POST",
       mode: "cors",
       headers: {

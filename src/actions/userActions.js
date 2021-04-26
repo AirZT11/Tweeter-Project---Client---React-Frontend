@@ -1,7 +1,8 @@
-import { FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER, FETCH_FOLLOWED_USERS, FETCH_FOLLOWERS, SIGNUP_ERROR, USER_INITIALIZE } from './types';
+import { API_URL, FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER, FETCH_FOLLOWED_USERS, FETCH_FOLLOWERS, SIGNUP_ERROR, USER_INITIALIZE } from './types';
 
-const LOGIN_API_URL = 'http://localhost:3001/api/v1/login';
-const USER_API_URL = 'http://localhost:3001/api/v1/users';
+// const API_URL = 'https://tweeter-heroku-backend.herokuapp.com/api/v1';
+const LOGIN_API_URL = API_URL + '/login';
+const USER_API_URL = API_URL + '/users';
 const TOKEN = localStorage.getItem("token")
 
 export const createUser = (formData, history) => dispatch => {
@@ -57,7 +58,7 @@ export const loginUser = (userInputData) => dispatch => {
 
 export const fetchCurrentUser = () => dispatch => {
     if(TOKEN){
-      fetch(`http://localhost:3001/api/v1/profile`, {
+      fetch(API_URL + '/profile', {
         method: "GET",
         headers: {
           "Authentication": `Bearer ${TOKEN}`
@@ -135,7 +136,7 @@ export const setCurrentUser = user => {
 
 export const fetchFollowedUsers = user => dispatch => {
   if (user) {
-    fetch(`http://localhost:3001/api/v1/following`, {
+    fetch(API_URL + '/following', {
       method: "GET",
       headers: {
         "UserId": user.id
@@ -153,7 +154,7 @@ export const fetchFollowedUsers = user => dispatch => {
 
 export const fetchFollowers = user => dispatch => {
   if (user) {
-    fetch(`http://localhost:3001/api/v1/followers`, {
+    fetch(API_URL + '/followers', {
       method: "GET",
       headers: {
         "UserId": user.id

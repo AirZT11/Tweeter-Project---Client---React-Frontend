@@ -1,3 +1,7 @@
+// API URL
+export const API_URL = 'https://tweeter-heroku-backend.herokuapp.com/api/v1';
+// export const API_URL = 'http://localhost:3001/api/v1';
+
 // TWEET TYPES
 export const FETCH_TWEETS = 'FETCH_TWEETS';
 export const USER_TWEETS = 'USER_TWEETS';

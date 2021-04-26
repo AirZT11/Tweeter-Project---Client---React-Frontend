@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { deleteTweet } from '../actions/tweetActions'
 import { withRouter } from 'react-router'
+import { API_URL } from '../actions/types';
 
 class TweetCard extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class TweetCard extends Component {
 
     if (userLikedTweet) {
       console.log('deleting like')
-      fetch(`http://localhost:3001/api/v1/likes/${userLikedTweet.id}`, {
+      fetch(`${API_URL}/likes/${userLikedTweet.id}`, {
         method: 'DELETE'
       })
       .then(this.setState({
@@ -37,7 +38,7 @@ class TweetCard extends Component {
       }))
     } else {
       console.log("adding like")
-      fetch('http://localhost:3001/api/v1/likes', {
+      fetch(API_URL + '/likes', {
         method: "POST",
         mode: "cors",
         headers: {
