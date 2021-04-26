@@ -28,3 +28,10 @@ Components
     - tweetList - Container
       - tweetCard
     - tweetForm
+
+
+plugins used
+- popups for pop up windows (used for editing profile)
+- portals for confirmations (used for confirming deletion of account)
+- using Avatar - Material UI for
+- using JWT tokens for Authentication

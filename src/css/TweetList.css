@@ -1,0 +1,121 @@
+/* TWEET CARDS */
+.tweet-container {
+  flex: 0.4;
+  border-right: 0px solid var(--twitter-background);
+  min-width: 50%;
+  overflow-y: scroll;
+}
+
+.feedHeader {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  border: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+}
+
+.tweet-card {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+  padding-right: 20px
+}
+
+.tweet_avatar {
+  padding: 20px;
+}
+
+.tweetBox {
+  padding-bottom: 10px;
+  border-bottom: 8px solid var(--twitter-background);
+  padding-right: 10px;
+}
+
+.tweetBox > form {
+  display: flex;
+  /* flex: auto; */
+  flex-direction: column;
+}
+
+.tweetInput {
+  /* padding: 20px; */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.tweetInput > input {
+  flex: 1;
+  /* margin-left: 20px; */
+  font-size: 20px;
+  border: none;
+  padding: 20px
+}
+
+.tweetButton {
+  border: none;
+  background-color: var(--twitter-color);
+  color: white;
+  font-weight: 900;
+  /* text-transform: inherit; */
+  border-radius: 30px;
+  min-width: 80px;
+  width: 80px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: auto;
+}
+
+.tweetButton:hover {
+  background-color: var(--twitter-hover);
+  border-radius: 30px;
+  color: #e8f5fe;
+  transition: color 200ms ease-out;
+  cursor: pointer;
+}
+
+.tweet-body {
+  flex: 1;
+  padding: 10px;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.tweet-container::-webkit-scrollbar {
+  display: none;
+}
+/* .input-wrap .input {
+  position: absolute;
+  width: 100%;
+  left: 0;
+} */
+
+.profile-card {
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+}
+
+span.main-username{
+  color: black;
+  font-weight: bold;
+  font-size: x-large;
+  
+}
+
+span.sub-username{
+  font-size: medium;
+  color: rgb(173, 173, 173)
+}
+
+.tweet__message {
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.tweet__message > p {
+  line-height: 30px;
+}

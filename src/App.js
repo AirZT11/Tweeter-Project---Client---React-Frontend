@@ -1,68 +1,101 @@
 import React, {Component} from 'react';
-import './App.css';
-import TweetList from './components/containers/TweetList'
-import TweetForm from './components/containers/TweetForm'
+import './css/App.css';
+import Home from './components/containers/Home';
+import Login from './components/Login';
+import SignUp from './components/containers/SignUpContainer';
+import Settings from './components/Settings';
+import Search from './components/Search';
+import Profile from './components/containers/Profile';
+import User from './components/User';
+import NavBar from './components/containers/NavBar';
+import AllUsers from './components/containers/AllUsersContainer';
+import Following from './components/containers/FollowingContainer';
+import Followers from './components/containers/FollowersContainer';
+import WidgetsContainer from './components/containers/WidgetsContainer';
 
-const TWEETS_API_URL = 'http://localhost:3001/api/v1/tweets'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchCurrentUser, fetchUsers } from './actions/userActions';
+import { fetchFollows } from './actions/followActions';
 
 class App extends Component {
-  state = {
-    tweets: []
-  }
 
   componentDidMount() {
-    fetch(TWEETS_API_URL)
-    .then(response => response.json())
-    .then(data => this.setState({
-      tweets: data.sort(this.custom_sort)
-    }))
+      this.props.fetchCurrentUser();
   }
-
-  custom_sort = (a, b) => {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-  }
-
-  updateTweetList = (tweetData) => {
-    this.setState({
-      tweets: [tweetData, ...this.state.tweets]
-    })
-  }
-
-  handleDelete = tweet => {
-    const deleteURL = TWEETS_API_URL + `/${tweet.id}`;
-    fetch(deleteURL, {
-      method: 'DELETE'
-    })
-      .then(() => {
-        const tweetDeletedFromList = this.state.tweets.filter(t => t !== tweet)
-          this.setState({
-            tweets: tweetDeletedFromList
-          })
-      })
-  }
-
+  
   render() {
     return (
       <div className="App">
-        <h1>Tweeter</h1>
-        < TweetForm 
-            tweetsApiURL={TWEETS_API_URL} 
-            updateTweetList={this.updateTweetList} 
-        />
-        <hr></hr>
-        <hr></hr>
-        < TweetList 
-            tweets={this.state.tweets} 
-            handleDelete={this.handleDelete} 
-            handleSubmitEdit={this.handleSubmitEdit}
-            handleEditChange={this.handleEditChange}
-            tweetsApiURL={TWEETS_API_URL} 
-            // editState={this.state.editTweet}
-        />
+        <Router>
+          <NavBar logged_in={this.props.currentUser} />
+
+          <Switch>
+            <Route exact path='/' render={() => this.props.loading ? 
+              null : (this.props.currentUser ?
+                < Home currentUser={this.props.currentUser} /> 
+                :
+                < Login /> )}>
+            </Route>
+
+            <Route exact path='/profile' render={() => this.props.loading ? 
+              null : (this.props.currentUser ?
+              < Profile /> 
+              :
+              < Login /> )}>
+            </Route>
+
+            <Route exact path='/settings' render={() => this.props.loading ? 
+              null : (this.props.currentUser ? < Settings />
+              :
+              < Login /> )}>
+            </Route>
+
+            <Route exact path='/user/:id' render={(props) => {
+              if (this.props.users !== []) {
+                const userId = props.match.params.id
+                return < User user={this.props.users.find(u => u.id == userId)} />
+              }}} />
+
+            <Route exact path='/login' render={() => this.props.currentUser ? 
+                < Redirect to="/" /> : < Login /> }>
+            </Route>
+
+            <Route exact path='/search' component={Search}></Route>
+
+            <Route exact path='/signUp' component={SignUp}></Route>
+
+            <Route exact path='/allUsers' component={AllUsers} />
+
+            <Route exact path='/following/:id' render={(props) => {
+              // if (this.props.users) {
+                const userId = props.match.params.id
+                return < Following 
+                user={this.props.users.find(u => u.id == userId)}/>
+              // }
+            }} />
+
+            <Route exact path='/followers/:id' render={(props) => {
+              // if (this.props.users) {
+                const userId = props.match.params.id
+                return < Followers 
+                user={this.props.users.find(u => u.id == userId)}/>
+              // }
+            }} />
+            
+          </Switch>
+          <WidgetsContainer currentUser={this.props.currentUser}  />
+        </Router>
       </div>
     );
   }
-    
 }
 
-export default App;
+const mapStateToProps = state => ({
+  currentUser: state.userData.currentUser,
+  users: state.userData.users,
+  loading: state.userData.loading
+})
+
+export default connect(mapStateToProps, { fetchCurrentUser, fetchUsers, fetchFollows})(App);

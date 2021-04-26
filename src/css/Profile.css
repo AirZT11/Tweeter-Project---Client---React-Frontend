@@ -1,0 +1,17 @@
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.profile-header {
+  padding: 20px;
+  display: inline-block;
+  vertical-align: text-bottom;
+  
+  /* align-items: flex-start; */
+  
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* justify-content: flex-end */
+}

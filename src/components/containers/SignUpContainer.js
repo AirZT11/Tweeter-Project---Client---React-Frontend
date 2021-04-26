@@ -2,71 +2,71 @@
 
 import React, {Component} from 'react';
 import SignUpForm from '../SignUpForm';
-
-const USERS_API_URL = 'http://localhost:3001/api/v1/users'
+import { connect } from 'react-redux';
+import { createUser } from '../../actions/userActions';
+import '../../css/SignIn.css'
+import ErrorCard from '../ErrorCard';
+import { clearErrors } from '../../actions/errorActions';
 
 class SignUpContainer extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      users: [],
       name: '',
       email: '',
       username: '',
       password: '',
+      image: null
       // confirmation: ''
     }
   }
 
-  // componentDidMount() {
-  //   this.fetchUsers
-  // }
-
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    }, ()=> console.log(event.target.value))
+    })
+  }
+
+  handleFileChange = (event) => {
+    this.setState({
+      image: event.target.files[0]
+    })
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    this.postUser();
-  }
-
-  postUser = () => {
-    fetch(USERS_API_URL, {
-      method: 'POST',
-      mode: 'cors', // why do you use cors?
-      headers: {
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify({
-        user: {
-          name: this.state.name,
-          email: this.state.email,
-          username: this.state.username,
-
-          //obviously going to need some level of decrytion for passwords
-          password: this.state.password, 
-          // password_confirmation: this.state.confirmation
-      }
-      })
-    }).then(response => response.json())
-    .then(data => console.log(data))
+    // const { history } = this.props;
+    const formData = new FormData();
+    formData.append('name', this.state.name);
+    formData.append('email', this.state.email);
+    formData.append('username', this.state.username);
+    formData.append('password', this.state.password);
+    if (this.state.image !== null) formData.append('image', this.state.image);
+    this.props.createUser(formData, this.props.history);
+    if(this.props.errors === null) this.props.clearErrors();
+    
   }
 
   render() {
     
     return (
-      <div>
+      <div className='signin-container'>
+        
         < SignUpForm 
             handleChange={this.handleChange}
+            handleFileChange={this.handleFileChange}
             handleSubmit={this.handleSubmit}
+            state={this.state}
         />
+        <div>< ErrorCard /></div>
       </div>
     )
   }
 }
 
-export default SignUpContainer
+const mapStateToProps = state => ({
+  errors: state.errorData.errors
+})
+
+export default connect(mapStateToProps, { createUser, clearErrors })(SignUpContainer)

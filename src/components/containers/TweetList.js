@@ -1,26 +1,33 @@
-import React from 'react';
-import TweetCard from '../TweetCard'
+import React, {Component} from 'react';
+import TweetCard from '../TweetCard';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
-const TweetList = (props) => {
+class TweetList extends Component {
 
-  return (
-    <div>
-      <h3>Your Submitted Tweets!</h3>
-      <hr></hr>
-      <hr></hr>
-      { props.tweets.map((tweet) => (
-          <div key={tweet.id}>
-            <TweetCard 
-              tweet={tweet} 
-              handleDelete={props.handleDelete}
-              tweetsApiURL={props.tweetsApiURL} 
-              // handleSubmitEdit={props.handleSubmitEdit}
-              // handleEditChange={props.handleEditChange}
-            />
-          </div>
-      ))}
-    </div>
-  )
+  render() {
+    if (this.props.tweets === undefined) {
+      return <div>Loading...</div>
+    } else {
+      return (
+        <div className='tweet-container'>
+          { this.props.tweets.map((tweet) => (
+              <div key={tweet.id}>
+                <TweetCard 
+                  tweet={tweet} 
+                  currentUser={this.props.currentUser}
+                />
+              </div>
+          ))}
+        </div>
+      )
+    }
+  }
+  
 } 
 
-export default TweetList;
+const mapStateToProps = state => ({
+  currentUser: state.userData.currentUser
+})
+
+export default withRouter(connect(mapStateToProps)(TweetList));

@@ -1,28 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-
-import NavBar from './NavBar'
-import App from './App';
-import Login from './components/Login'
-import SignUp from './components/containers/SignUpContainer'
-import Search from './components/Search'
-
+import './css/index.css';
+import App from './App'
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import { Provider } from 'react-redux';
+import store from './store'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <div>
-      <Router>
-        <NavBar />
-        <Route exact path='/' component={App}></Route>
-        <Route exact path='/login' component={Login}></Route>
-        <Route exact path='/search' component={Search}></Route>
-        <Route exact path='/signUp' component={SignUp}></Route>
-      </Router>
-    </div>
-  </React.StrictMode>,
+  <Provider store={store} >
+    < App />
+  </Provider>,
   document.getElementById('root')
 );
 

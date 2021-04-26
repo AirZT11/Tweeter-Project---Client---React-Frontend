@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-
-const LOGIN_API_URL = 'http://localhost:3001/api/v1/login'
+import { loginUser } from '../actions/userActions';
+import { connect } from 'react-redux';
+import '../css/SignIn.css'
 
 class Login extends Component {
   state = {
@@ -20,37 +21,29 @@ class Login extends Component {
     })
   }
 
+  initialState = () => {
+    this.setState({
+      username: '',
+      password: ''
+    })
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
-    fetch(LOGIN_API_URL, {
-      method: "POST",
-      headers:  {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        user: {
-          username: this.state.username,
-          password: this.state.password
-        }
-        
-      })
-    })
-    .then(resp => resp.json())
-    .then(data => {
-      localStorage.setItem("token", data.jwt)
-      // props.handleLogin(data.user)
-      console.log(data)
-    })
+    const userInputData = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    this.props.loginUser(userInputData)
   }
 
   render() {
     return (
-      <div>
-        <h1>Login</h1>
+      <div className='signin-container'>
         <form onSubmit={this.handleSubmit}>
+          <h1>Login</h1>
           <label htmlFor='username'>Username</label><br />
-          <input id='username' name='username' type='text' onChange={this.handleUsernameChange}/>
+          <input id='username' name='username' type='text' placeholder='username' onChange={this.handleUsernameChange}/>
           <br /><br />
           <label htmlFor='password'>Password</label><br />
           <input id='password' name='password' type='password' onChange={this.handlePasswordChange}/>
@@ -62,4 +55,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default connect(null, { loginUser })(Login)
