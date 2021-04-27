@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { follow, unfollow, fetchFollows } from '../actions/followActions';
 import { fetchTweets } from '../actions/tweetActions';
 
+// UserCard is used for displaying users in the Search Component
 const UserCard = ({user, follow, unfollow, following, fetchFollows, fetchTweets}) => {
   
   // checks if current user follows user

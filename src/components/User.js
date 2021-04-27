@@ -7,6 +7,7 @@ import { fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
 import { follow, unfollow } from '../actions/followActions';
 import { Link } from 'react-router-dom';
 
+// User is used for displaying user profiles
 const User = ({user, follow, unfollow, following, fetchUserSpecificTweets, tweets, followedUsers, followers}) => {
  
   const dispatch = useDispatch()
@@ -59,7 +60,7 @@ const User = ({user, follow, unfollow, following, fetchUserSpecificTweets, tweet
       </div>
     )
   } else {
-    return <div>Loading...</div>
+    return <div className='tweet-container'>Loading...</div>
   }
 }
 

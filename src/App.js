@@ -23,6 +23,7 @@ class App extends Component {
 
   componentDidMount() {
       this.props.fetchCurrentUser();
+      this.props.fetchUsers();
   }
   
   render() {
