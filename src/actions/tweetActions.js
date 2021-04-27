@@ -1,9 +1,8 @@
 import { API_URL, FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET, TWEET_ERROR, TWEET_INITIALIZE } from './types';
 
-// import { fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
+import { fetchUsers, fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
+import { fetchFollows } from '../actions/followActions';
 
-// let token = localStorage.getItem("token");
-// const API_URL = 'https://tweeter-heroku-backend.herokuapp.com/api/v1';
 const TWEET_API_URL = API_URL + '/tweets';
 
 export const fetchTweets = () => dispatch => {
@@ -21,7 +20,9 @@ export const fetchTweets = () => dispatch => {
         type: FETCH_TWEETS,
         payload: tweets
       })
-    );
+    )
+    // .then(() => dispatch(fetchUsers()))
+    // .then(() => dispatch(fetchFollows()))
 };
 
 export const userTweets = (currentUser) => dispatch => {

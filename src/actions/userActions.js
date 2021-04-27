@@ -1,9 +1,7 @@
 import { API_URL, FETCH_CURRENT_USER, LOADING_USER, FETCH_USERS, CREATE_USER, DELETE_USER, EDIT_USER, LOGIN_USER, LOGIN_FAILED, SET_CURRENT_USER, FETCH_FOLLOWED_USERS, FETCH_FOLLOWERS, SIGNUP_ERROR, USER_INITIALIZE } from './types';
 
-// const API_URL = 'https://tweeter-heroku-backend.herokuapp.com/api/v1';
 const LOGIN_API_URL = API_URL + '/login';
 const USER_API_URL = API_URL + '/users';
-const TOKEN = localStorage.getItem("token")
 
 export const createUser = (formData, history) => dispatch => {
   fetch(USER_API_URL, {
@@ -57,11 +55,12 @@ export const loginUser = (userInputData) => dispatch => {
 }
 
 export const fetchCurrentUser = () => dispatch => {
-    if(TOKEN){
+  let token = localStorage.getItem("token")
+    if(token){
       fetch(API_URL + '/profile', {
         method: "GET",
         headers: {
-          "Authentication": `Bearer ${TOKEN}`
+          "Authentication": `Bearer ${token}`
         }
       })
       .then(resp => resp.json())
@@ -82,7 +81,8 @@ export const fetchCurrentUser = () => dispatch => {
 }
 
 export const fetchUsers = () => dispatch => {
-  if (TOKEN) {
+  let token = localStorage.getItem("token")
+  if (token) {
     fetch(USER_API_URL)
     .then(response => response.json())
     .then(users => { 
