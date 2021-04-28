@@ -9,16 +9,18 @@ const InstructionsPage = props => {
       <h2>Please sign up or login with a created user</h2>
       <p>You are welcome to use the user accounts listed below</p>
       <table>
-        <tr>
-          <th>#</th>
-          <th>Username</th>
-          <th>Password</th>
-        </tr>
-        <tr>
-          <td>1.</td>
-          <td>user</td>
-          <td>password</td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Password</th>
+          </tr>
+          <tr>
+            <td>1.</td>
+            <td>user</td>
+            <td>password</td>
+          </tr>
+        </tbody> 
       </table>
     </div>
   )
