@@ -31,42 +31,23 @@ const NavBar = ({ logged_in, currentUser, userInitialize, tweetInitialize, follo
       <div className='nav-bar'>
         <ul>
           <li>
-            <NavLink
-            to='/'
-            exact
-            className='nav-link'
-            >{<HomeIcon />}Home</NavLink>
+            <NavLink to='/' exact className='nav-link'>{<HomeIcon />}Home</NavLink>
           </li>
         
           <li>
-            <NavLink
-              to='/profile'
-              exact
-              className='nav-link'
-            >{<PersonIcon />}Profile</NavLink>
+            <NavLink to='/profile' exact className='nav-link' >{<PersonIcon />}Profile</NavLink>
           </li>
 
           <li>
-            <NavLink
-              to='/Search'
-              exact
-              className='nav-link'
-            >{<SearchIcon />}Search</NavLink>
+            <NavLink to='/Search' exact className='nav-link'>{<SearchIcon />}Search</NavLink>
           </li>
 
           <li>
-            <NavLink 
-              to="/settings" 
-              className='nav-link' 
-            >{<SettingsIcon />}Settings</NavLink>
+            <NavLink to="/settings" className='nav-link' >{<SettingsIcon />}Settings</NavLink>
           </li>
 
           <li>
-            <NavLink 
-              to="/login" 
-              className='nav-link' 
-              onClick={logout}
-            >{<ExitToAppIcon />}Logout</NavLink>
+            <NavLink to="/login" className='nav-link' onClick={logout} >{<ExitToAppIcon />}Logout</NavLink>
           </li>
 
           <li className='last-child'>
@@ -90,20 +71,17 @@ const NavBar = ({ logged_in, currentUser, userInitialize, tweetInitialize, follo
       <div className='nav-bar'>
         <ul>
           <li>
-            <NavLink
-              to='/SignUp'
-              exact
-              className='nav-link'
-            >Sign Up</NavLink>
+            <NavLink to='/Welcome' exact className='nav-link'>Welcome</NavLink>
+          </li>
+          
+          <li>
+            <NavLink to='/SignUp' exact className='nav-link'>Sign Up</NavLink>
           </li>
 
           <li>
-            <NavLink
-              to='/Login'
-              exact
-              className='nav-link'
-              >Login</NavLink>    
+            <NavLink to='/Login' exact className='nav-link'>Login</NavLink>    
           </li>
+
         </ul>
       </div>
     )

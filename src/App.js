@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import './css/App.css';
 import Home from './components/containers/Home';
 import Login from './components/Login';
@@ -12,10 +13,10 @@ import AllUsers from './components/containers/AllUsersContainer';
 import Following from './components/containers/FollowingContainer';
 import Followers from './components/containers/FollowersContainer';
 import WidgetsContainer from './components/containers/WidgetsContainer';
+import InstructionsPage from './components/InstructionsPage';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { fetchCurrentUser, fetchUsers } from './actions/userActions';
 import { fetchFollows } from './actions/followActions';
 
@@ -37,20 +38,20 @@ class App extends Component {
               null : (this.props.currentUser ?
                 < Home currentUser={this.props.currentUser} /> 
                 :
-                < Login /> )}>
+                < InstructionsPage /> )}>
             </Route>
 
             <Route exact path='/profile' render={() => this.props.loading ? 
               null : (this.props.currentUser ?
               < Profile /> 
               :
-              < Login /> )}>
+              < InstructionsPage /> )}>
             </Route>
 
             <Route exact path='/settings' render={() => this.props.loading ? 
               null : (this.props.currentUser ? < Settings />
               :
-              < Login /> )}>
+              < InstructionsPage /> )}>
             </Route>
 
             <Route exact path='/user/:id' render={(props) => {
@@ -85,6 +86,8 @@ class App extends Component {
               // }
             }} />
             
+            <Route exact path='/Welcome' component={InstructionsPage} />
+
           </Switch>
           <WidgetsContainer currentUser={this.props.currentUser}  />
         </Router>

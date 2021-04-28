@@ -1,0 +1,52 @@
+.page-container {
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.page-container > h1 {
+  font-size: 75px;
+  line-height: 1.5;
+}
+
+.page-container > h2 {
+  font-size: 30px;
+  line-height: 2;
+}
+
+.page-container > p {
+  font-size: 20px;
+  font-style: italic;
+  line-height: 4;
+}
+
+table {
+  border: 1px solid var(--twitter-background);
+  /* border-collapse: separate; */
+  table-layout: fixed;
+  margin-left: auto; 
+  margin-right: auto;
+  width: 75%;
+  /* background-color: var(--twitter-background); */
+  border-radius: 15px;
+  font-size: 20px;
+  border-spacing: 0;
+}
+
+table th {
+  border-bottom: 1px solid var(--twitter-background);
+}
+
+td {
+  background-color: white;
+  border-collapse: collapse;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
