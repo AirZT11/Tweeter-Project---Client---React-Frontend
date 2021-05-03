@@ -15,3 +15,8 @@
   background-position: center; */
 }
 
+@media (max-width: 854px) {
+  .widgets-container {
+    display: none;
+  }
+}

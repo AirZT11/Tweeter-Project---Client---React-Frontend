@@ -5,6 +5,7 @@
   margin-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  /* overflow: auto; */
 }
 
 .nav-bar ul {
@@ -24,15 +25,9 @@
   margin-right: 20px;
   font-family: inherit;
   width: 100px;
-  padding:30px;
+  padding: 30px;
   color: black;
   text-decoration: none;
-  /* padding: 30px; */
-  /* margin: 6px 6px; */
-}
-
-.nav-link > .MuiSvgIcon-root {
-  
 }
 
 .nav-link:hover {
@@ -50,4 +45,40 @@
 
 .active {
   color: var(--twitter-color);
+}
+
+@media (max-width: 854px) {
+  .nav-bar {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0px;
+    overflow: hidden;
+  }
+
+  .nav-link {
+    padding-top: 20px;
+    padding-right: 0px;
+    margin-right: 0px;
+    margin-left: 5px;
+    width: 50px;
+  }
+
+  .nav-link > p {
+    display: none;
+  }
+
+  .nav-bar > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+  }
+
+  .nav-bar > li {
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
 }

@@ -1,7 +1,7 @@
 import { API_URL, FETCH_TWEETS, USER_TWEETS, FETCH_USER_SPECIFIC_TWEETS, POST_TWEET, DELETE_TWEET, EDIT_TWEET, TWEET_ERROR, TWEET_INITIALIZE } from './types';
 
-import { fetchUsers, fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
-import { fetchFollows } from '../actions/followActions';
+// import { fetchUsers, fetchFollowedUsers, fetchFollowers } from '../actions/userActions';
+// import { fetchFollows } from '../actions/followActions';
 
 const TWEET_API_URL = API_URL + '/tweets';
 

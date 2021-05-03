@@ -119,3 +119,10 @@ span.sub-username{
 .tweet__message > p {
   line-height: 30px;
 }
+
+@media (max-width: 854px) {
+  .tweet-container {
+    flex: 0.7;
+    min-width: none;
+  }
+}

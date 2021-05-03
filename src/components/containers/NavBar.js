@@ -31,27 +31,28 @@ const NavBar = ({ logged_in, currentUser, userInitialize, tweetInitialize, follo
       <div className='nav-bar'>
         <ul>
           <li>
-            <NavLink to='/' exact className='nav-link'>{<HomeIcon />}Home</NavLink>
+            <NavLink to='/' exact className='nav-link'>{<HomeIcon />}{<p>Home</p>}</NavLink>
+            
           </li>
         
           <li>
-            <NavLink to='/profile' exact className='nav-link' >{<PersonIcon />}Profile</NavLink>
+            <NavLink to='/profile' exact className='nav-link' >{<PersonIcon />}{<p>Profile</p>}</NavLink>
           </li>
 
           <li>
-            <NavLink to='/Search' exact className='nav-link'>{<SearchIcon />}Search</NavLink>
+            <NavLink to='/Search' exact className='nav-link'>{<SearchIcon />}{<p>Search</p>}</NavLink>
           </li>
 
           <li>
-            <NavLink to="/settings" className='nav-link' >{<SettingsIcon />}Settings</NavLink>
+            <NavLink to="/settings" className='nav-link' >{<SettingsIcon />}{<p>Settings</p>}</NavLink>
           </li>
 
           <li>
-            <NavLink to="/login" className='nav-link' onClick={logout} >{<ExitToAppIcon />}Logout</NavLink>
+            <NavLink to="/login" className='nav-link' onClick={logout} >{<ExitToAppIcon />}{<p>Logout</p>}</NavLink>
           </li>
 
           <li className='last-child'>
-            <Popup trigger={<div className='nav-link'>{<TwitterIcon />}Tweet</div>} modal nested>
+            <Popup trigger={<div className='nav-link'>{<TwitterIcon />}{<p>Tweet</p>}</div>} modal nested>
               {close => (
               <div className="modal">
                 <button className="close" onClick={close}>&times;</button>
