@@ -49,36 +49,39 @@
 
 @media (max-width: 854px) {
   .nav-bar {
+    /* display: flex; */
+    flex: none;
     padding-left: 0px;
     padding-right: 0px;
     margin: 0px;
     overflow: hidden;
+    border-right: none;
   }
 
   .nav-link {
-    padding-top: 20px;
-    padding-right: 0px;
-    margin-right: 0px;
-    margin-left: 5px;
-    width: 50px;
+    padding: 0px;
+    margin: 0px;
   }
 
   .nav-link > p {
     display: none;
   }
 
-  .nav-bar > ul {
+  ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
   }
 
-  .nav-bar > li {
-    float: left;
-    display: block;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+  li {
+    display: inline;
+    /* float:left; */
+    /* text-align: center; */
+  }
+
+  .last-child {
+    position: unset;
+    /* bottom: 20px; */
   }
 }

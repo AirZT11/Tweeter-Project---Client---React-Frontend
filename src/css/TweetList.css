@@ -122,6 +122,6 @@ span.sub-username{
 
 @media (max-width: 854px) {
   .tweet-container {
-    flex: 0.7;
+    flex: 1;
   }
 }

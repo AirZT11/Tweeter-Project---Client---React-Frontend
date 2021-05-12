@@ -17,3 +17,12 @@ body {
   --twitter-background: #e6ecf0;
   --twitter-hover: #4396c9;
 }
+
+@media (max-width: 854px) {
+  .App {
+    flex-direction: column;
+    /* box-sizing:border-box; */
+  }
+
+
+}

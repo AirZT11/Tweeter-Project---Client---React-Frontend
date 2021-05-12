@@ -13,7 +13,7 @@ import AllUsers from './components/containers/AllUsersContainer';
 import Following from './components/containers/FollowingContainer';
 import Followers from './components/containers/FollowersContainer';
 import WidgetsContainer from './components/containers/WidgetsContainer';
-import InstructionsPage from './components/InstructionsPage';
+import WelcomePage from './components/WelcomePage';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
@@ -38,20 +38,20 @@ class App extends Component {
               null : (this.props.currentUser ?
                 < Home currentUser={this.props.currentUser} /> 
                 :
-                < InstructionsPage /> )}>
+                < WelcomePage /> )}>
             </Route>
 
             <Route exact path='/profile' render={() => this.props.loading ? 
               null : (this.props.currentUser ?
               < Profile /> 
               :
-              < InstructionsPage /> )}>
+              < WelcomePage /> )}>
             </Route>
 
             <Route exact path='/settings' render={() => this.props.loading ? 
               null : (this.props.currentUser ? < Settings />
               :
-              < InstructionsPage /> )}>
+              < WelcomePage /> )}>
             </Route>
 
             <Route exact path='/user/:id' render={(props) => {
@@ -86,7 +86,7 @@ class App extends Component {
               // }
             }} />
             
-            <Route exact path='/Welcome' component={InstructionsPage} />
+            <Route exact path='/Welcome' component={WelcomePage} />
 
           </Switch>
           <WidgetsContainer currentUser={this.props.currentUser}  />

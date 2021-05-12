@@ -5,6 +5,7 @@ import SignUpForm from '../SignUpForm';
 import { connect } from 'react-redux';
 import { createUser } from '../../actions/userActions';
 import '../../css/SignIn.css'
+import '../../css/TweetList.css'
 import ErrorCard from '../ErrorCard';
 import { clearErrors } from '../../actions/errorActions';
 
@@ -51,15 +52,16 @@ class SignUpContainer extends Component {
   render() {
     
     return (
-      <div className='signin-container'>
-        
-        < SignUpForm 
-            handleChange={this.handleChange}
-            handleFileChange={this.handleFileChange}
-            handleSubmit={this.handleSubmit}
-            state={this.state}
-        />
-        <div>< ErrorCard /></div>
+      <div className='tweet-container'>
+        <div className='signin-container'>
+          < SignUpForm 
+              handleChange={this.handleChange}
+              handleFileChange={this.handleFileChange}
+              handleSubmit={this.handleSubmit}
+              state={this.state}
+          />
+          <div>< ErrorCard /></div>
+        </div>
       </div>
     )
   }

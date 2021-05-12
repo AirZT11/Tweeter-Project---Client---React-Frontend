@@ -1,37 +1,4 @@
 # README
-Welcome to my Tweeter App!
-- Tweeter is my version of Twitter. The MVC is to allow a user to post/delete/edit tweets to the page.
+Welcome to Tweeter! Tweeter is a clone of Twitter where you can sign up and start posting tweets, follow other users, and like other user's tweets. Please feel free to sign up and start posting your own tweets as well as following other users. You are also free to use a default account, which is detailed on the welcome page.
 
-A Rails API (Application Programming Interface) is used for the backend
-  - RESTful(REpresentation State Transfer) design pattern
-  - Using postgreSQL as the database
-
-React is used for the Frontend
-  - Bootstrap is used for styling
-
-REACT
-- Models
-  - Users
-    - Username
-    - Password
-    - has_many tweets
-  - Tweets
-    - tweet_message
-    - likes
-    - image
-    
-REACT
-Components
-
-- index
-  - app
-    - tweetList - Container
-      - tweetCard
-    - tweetForm
-
-
-plugins used
-- popups for pop up windows (used for editing profile)
-- portals for confirmations (used for confirming deletion of account)
-- using Avatar - Material UI for
-- using JWT tokens for Authentication
+The back end of this app is built with Ruby on Rails, PostgreSQL, and Cloudinary for media storage. The front end is built with React, Redux for state management, and utilizes the Material UI for the use of specific icons. 
