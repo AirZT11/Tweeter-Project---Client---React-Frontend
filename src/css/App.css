@@ -21,6 +21,7 @@ body {
 @media (max-width: 854px) {
   .App {
     flex-direction: column;
+    margin: 10px;
     /* box-sizing:border-box; */
   }
 

@@ -6,7 +6,7 @@ const SignUpForm = ({handleChange, handleFileChange, handleSubmit, state}) => {
   return (
     <div>
       {/* {console.log(state)} */}
-      <h1>Sign Up</h1>
+      <h1>Sign Up</h1><br/>
         <form onSubmit={handleSubmit}>
           <label htmlFor='name'>Name </label><br />
           <input id='name' name='name' type='text' value={state.name} placeholder="name" onChange={handleChange} />

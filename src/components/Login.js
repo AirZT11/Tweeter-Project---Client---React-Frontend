@@ -43,7 +43,7 @@ class Login extends Component {
       <div className='tweet-container'>
         <div className='signin-container'>
           <form onSubmit={this.handleSubmit}>
-            <h1>Login</h1>
+            <h1>Login</h1><br />
             <label htmlFor='username'>Username</label><br />
             <input id='username' name='username' type='text' placeholder='username' onChange={this.handleUsernameChange}/>
             <br /><br />

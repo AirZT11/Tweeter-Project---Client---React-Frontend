@@ -7,7 +7,7 @@
 }
 
 .page-container > h1 {
-  font-size: 75px;
+  font-size: 50px;
   line-height: 1.5;
 }
 
@@ -25,7 +25,7 @@
 table {
   border: 1px solid var(--twitter-background);
   /* border-collapse: separate; */
-  table-layout: fixed;
+  table-layout:auto;
   margin-left: auto; 
   margin-right: auto;
   width: 75%;
