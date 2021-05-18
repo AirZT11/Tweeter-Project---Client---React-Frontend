@@ -37,7 +37,6 @@ class SignUpContainer extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // const { history } = this.props;
     const formData = new FormData();
     formData.append('name', this.state.name);
     formData.append('email', this.state.email);
